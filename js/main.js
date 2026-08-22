@@ -116,7 +116,6 @@
     navToggles.forEach((toggle) => {
       toggle.addEventListener('click', (e) => {
         e.preventDefault();
-        e.stopPropagation();
         const isOpen = toggle.classList.toggle('active');
         navLinksList.forEach((links) => {
           if (isOpen) {

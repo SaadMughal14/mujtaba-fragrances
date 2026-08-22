@@ -249,15 +249,7 @@
         });
       });
 
-      // Mobile nav toggle
-      const toggle = document.getElementById('navToggle');
-      const links = document.getElementById('navLinks');
-      if (toggle && links) {
-        toggle.addEventListener('click', () => {
-          toggle.classList.toggle('active');
-          links.classList.toggle('open');
-        });
-      }
+      // Mobile nav toggle is handled globally by js/main.js (initMobileNav)
     })();
   </script>
 </body>
