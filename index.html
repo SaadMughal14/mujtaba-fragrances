@@ -206,10 +206,10 @@
           <div class="sleek-badge" id="sleekBadge">
             <svg class="sleek-badge-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <!-- Top arc path (upper half, left to right) for "CRAFTED WITH CARE" -->
+                <!-- Top arc path: starts left, goes over the top to right (text reads upright on top) -->
                 <path id="arc-top" fill="none" d="M 22,110 A 88,88 0 0,1 198,110"/>
-                <!-- Bottom arc path (lower half, right to left) for "CONSCIOUS BY NATURE" -->
-                <path id="arc-bottom" fill="none" d="M 198,110 A 88,88 0 0,1 22,110"/>
+                <!-- Bottom arc path: starts left, goes under the bottom to right (text reads upright on bottom) -->
+                <path id="arc-bottom" fill="none" d="M 22,110 A 88,88 0 0,0 198,110"/>
                 <linearGradient id="sleekGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#F5E1A4"/>
                   <stop offset="50%" stop-color="#D4AF37"/>
@@ -246,36 +246,30 @@
 
               </g>
 
-              <!-- ===== CENTER ICON (static) — botanical lotus ===== -->
+              <!-- ===== CENTER ICON (static) — 3-petaled lotus sprout ===== -->
               <g class="sleek-center-icon" transform="translate(110, 110)">
-                <!-- Outer petals (4 large, pointing cardinal directions) -->
-                <!-- Top petal -->
-                <path d="M 0,-26 C -8,-20 -10,-12 0,-4 C 10,-12 8,-20 0,-26 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
-                <!-- Bottom petal -->
-                <path d="M 0,26 C -8,20 -10,12 0,4 C 10,12 8,20 0,26 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
-                <!-- Left petal -->
-                <path d="M -26,0 C -20,-8 -12,-10 -4,0 C -12,10 -20,8 -26,0 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
-                <!-- Right petal -->
-                <path d="M 26,0 C 20,-8 12,-10 4,0 C 12,10 20,8 26,0 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
+                <!-- Center petal (tall, pointed oval) -->
+                <path d="M 0,-36 C -9,-28 -11,-18 0,-8 C 11,-18 9,-28 0,-36 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.2" stroke-linejoin="round"/>
+                <!-- Center petal vein -->
+                <line x1="0" y1="-34" x2="0" y2="-10" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
 
-                <!-- Inner petal veins (delicate detail) -->
-                <line x1="0" y1="-24" x2="0" y2="-6" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
-                <line x1="0" y1="6" x2="0" y2="24" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
-                <line x1="-24" y1="0" x2="-6" y2="0" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
-                <line x1="6" y1="0" x2="24" y2="0" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
+                <!-- Left side petal (curves outward and down) -->
+                <path d="M -4,-10 C -20,-14 -26,-2 -14,10 C -10,4 -6,-2 -4,-10 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.2" stroke-linejoin="round"/>
+                <!-- Left petal vein -->
+                <line x1="-8" y1="-8" x2="-18" y2="6" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
 
-                <!-- Inner small petals (rotated 45°) -->
-                <path d="M 0,-14 C -4,-10 -4,-6 0,-2 C 4,-6 4,-10 0,-14 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
-                <path d="M 0,14 C -4,10 -4,6 0,2 C 4,6 4,10 0,14 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
+                <!-- Right side petal (mirror of left) -->
+                <path d="M 4,-10 C 20,-14 26,-2 14,10 C 10,4 6,-2 4,-10 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.2" stroke-linejoin="round"/>
+                <!-- Right petal vein -->
+                <line x1="8" y1="-8" x2="18" y2="6" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
 
-                <!-- Center dot -->
-                <circle cx="0" cy="0" r="1.5" fill="url(#sleekGoldGrad)"/>
+                <!-- Stem (V converging to single line) -->
+                <line x1="-5" y1="8" x2="0" y2="18" stroke="url(#sleekGoldGrad)" stroke-width="1.2"/>
+                <line x1="5" y1="8" x2="0" y2="18" stroke="url(#sleekGoldGrad)" stroke-width="1.2"/>
+                <line x1="0" y1="18" x2="0" y2="30" stroke="url(#sleekGoldGrad)" stroke-width="1.2"/>
               </g>
             </svg>
           </div>

@@ -225,8 +225,9 @@
     const rotatingGroup = document.querySelector('.sleek-rotating-group');
     if (!rotatingGroup) return;
 
-    // Continuous slow rotation — very subtle, 30s per revolution
-    // transformOrigin matches CSS: 110px 110px (center of 220x220 viewBox)
+    // Continuous slow rotation ONLY — no scale, no y movement.
+    // transformOrigin must match the SVG center exactly so the circle
+    // rotates in its own fixed position without drifting.
     gsap.to(rotatingGroup, {
       rotation: 360,
       duration: 30,
@@ -235,20 +236,19 @@
       transformOrigin: '110px 110px',
     });
 
-    // Subtle scale-in when badge enters viewport
+    // Simple fade-in only (no scale) when badge enters viewport
     if (hasScrollTrigger) {
       const badge = document.querySelector('.sleek-badge');
       if (badge) {
         gsap.fromTo(badge,
-          { opacity: 0, scale: 0.85 },
+          { opacity: 0 },
           {
             opacity: 1,
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
+            duration: 0.8,
+            ease: 'power2.out',
             scrollTrigger: {
               trigger: badge,
-              start: 'top 80%',
+              start: 'top 85%',
               toggleActions: 'play none none none',
             },
           }
