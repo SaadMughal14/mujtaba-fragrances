@@ -14,6 +14,9 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- Leaflet Interactive Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
 </head>
@@ -56,25 +59,31 @@
 
   <!-- ====================== HERO ====================== -->
   <header class="hero">
-    <!-- Hero background video -->
+    <!-- Hero background video (Desktop Web View) -->
     <video class="hero-video" autoplay muted loop playsinline preload="auto">
       <source src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_hero_video.mp4" type="video/mp4">
       <source src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_hero_video.mp4" type="video/webm">
     </video>
+    <!-- Dedicated Mobile Hero Image Background -->
+    <div class="hero-mobile-bg"></div>
     <div class="hero-overlay"></div>
 
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content">
-          <span class="label-caps gsap-hero-item">Beyond Scent, An Experience</span>
+          <span class="label-caps gsap-hero-item hero-web-only">Beyond Scent, An Experience</span>
           <h1 class="hero-title gsap-hero-item">
             <span class="hero-line-1">Timeless Luxury,</span>
             <span class="hero-line-2 italic-gold text-gradient-gold">Uniquely Yours</span>
           </h1>
-          <p class="gsap-hero-item">Discover artisan fragrances crafted with rare ingredients and timeless sophistication. Each bottle holds a story, distilled from the world's most precious botanicals.</p>
+          <p class="gsap-hero-item hero-web-only">Discover artisan fragrances crafted with rare ingredients and timeless sophistication. Each bottle holds a story, distilled from the world's most precious botanicals.</p>
           <div class="hero-cta gsap-hero-item">
-            <a href="shop.html" class="btn-primary-3d">
+            <a href="shop.html" class="btn-primary-3d hero-web-btn">
               <span>Discover Collection</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </a>
+            <a href="shop.html" class="btn-hero-glass-mobile">
+              <span>Shop Collection</span>
               <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
             </a>
           </div>
@@ -82,8 +91,8 @@
       </div>
     </div>
 
-    <!-- Floating UI Card anchored in right corner -->
-    <div class="floating-card glass-panel gsap-hero-card" onclick="window.location.href='shop.html'" style="cursor: pointer;">
+    <!-- Floating UI Card anchored in right corner (Web View) -->
+    <div class="floating-card glass-panel gsap-hero-card hero-web-only" onclick="window.location.href='shop.html'" style="cursor: pointer;">
       <div class="floating-card-thumb">
         <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/hero-noir.png" alt="Shop All Fragrances" class="thumb-img">
         <div class="liquid-shine"></div>
@@ -179,7 +188,8 @@
   <section id="feature">
     <div class="feature-margin-top-line"></div>
     <div class="container">
-      <div class="feature-split">
+      <!-- Desktop Split View -->
+      <div class="feature-split feature-desktop-view">
         <div class="feature-text gsap-fade-up">
           <div class="feature-num-wrap">
             <span class="feature-num" id="featureNum">(01)</span>
@@ -222,6 +232,41 @@
               <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
             </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Dedicated Luxury Mobile Showcase -->
+      <div class="feature-mobile-showcase">
+        <div class="maison-crystal-card">
+          <div class="maison-tag-pill">
+            <span class="pulse-dot"></span>
+            <span>MAISON ATELIER · 100% EXTRAIT</span>
+          </div>
+          <h2>Ethically Crafted,<br><span class="italic-gold">Exquisitely Sourced</span></h2>
+          <p>Partnering with world-renowned master perfumers, we harvest rare botanicals at peak maturity to compose pure extrait de parfums of uncompromised longevity.</p>
+          
+          <div class="maison-pillars-grid">
+            <div class="maison-pillar-item">
+              <span class="pillar-num">01</span>
+              <span class="pillar-title">Rare Harvest</span>
+              <span class="pillar-desc">Sustainably sourced</span>
+            </div>
+            <div class="maison-pillar-item">
+              <span class="pillar-num">02</span>
+              <span class="pillar-title">Master Noses</span>
+              <span class="pillar-desc">Artisan formulation</span>
+            </div>
+            <div class="maison-pillar-item">
+              <span class="pillar-num">03</span>
+              <span class="pillar-title">18h+ Longevity</span>
+              <span class="pillar-desc">Extrait concentration</span>
+            </div>
+          </div>
+
+          <a href="shop.html" class="btn-crystal-gold">
+            <span>Explore The Collection</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -331,6 +376,81 @@
         </button>
 
         <div class="slider-dots" id="testiDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== STORE LOCATOR / ATELIER EXPERIENCE ====================== -->
+  <section class="store-locator-section" id="locator">
+    <div class="container">
+      <div class="section-header section-center gsap-fade-up">
+        <span class="label-caps">Flagship Presence</span>
+        <h2>Experience Mujtaba in <span class="italic-gold">Person</span></h2>
+        <p style="margin: 0 auto;">Immerse your senses at our boutique atelier and olfactory bar in Karachi, Pakistan.</p>
+      </div>
+
+      <div class="store-locator-grid">
+        <!-- Interactive Boutique Information Card -->
+        <div class="boutique-crystal-card glass-panel gsap-fade-up">
+          <div class="boutique-card-header">
+            <span class="boutique-status-pill"><span class="status-dot pulse"></span> Open Today</span>
+            <span class="boutique-city-tag"><i class="fa-solid fa-location-dot"></i> Karachi, Pakistan</span>
+          </div>
+
+          <h3 class="boutique-name">Maison Mujtaba Atelier</h3>
+          <p class="boutique-sub">Flagship Boutique & Olfactory Lounge</p>
+
+          <div class="boutique-details-list">
+            <div class="boutique-detail-item">
+              <div class="detail-icon"><i class="fa-solid fa-building-columns"></i></div>
+              <div class="detail-text">
+                <strong>Campus & Location</strong>
+                <p>Mohammad Ali Jinnah University (MAJU), Lalazar / PECHS Block 6, Shahrah-e-Faisal, Karachi 75400, Pakistan</p>
+              </div>
+            </div>
+
+            <div class="boutique-detail-item">
+              <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
+              <div class="detail-text">
+                <strong>Visiting Hours</strong>
+                <p>Monday – Saturday: 11:00 AM – 9:00 PM<br><span class="detail-sub-note">Sunday: Private Concierge Appointments</span></p>
+              </div>
+            </div>
+
+            <div class="boutique-detail-item">
+              <div class="detail-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+              <div class="detail-text">
+                <strong>In-Store Experiences</strong>
+                <p>Private Olfactory Scent Profiling · 100ml Custom Bottle Engraving · Complimentary Extrait Sample Flight</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="boutique-actions">
+            <a href="https://maps.google.com/?q=Mohammad+Ali+Jinnah+University+Karachi" target="_blank" rel="noopener noreferrer" class="btn-primary-3d boutique-dir-btn">
+              <i class="fa-solid fa-diamond-turn-right"></i>
+              <span>Get Directions</span>
+            </a>
+            <a href="tel:+923000000000" class="btn-outline boutique-contact-btn">
+              <i class="fa-solid fa-phone"></i>
+              <span>Concierge</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive Map Frame / Canvas -->
+        <div class="locator-map-wrap glass-panel gsap-fade-up">
+          <div id="atelierMap" class="atelier-map-container"></div>
+          <div class="map-overlay-badge">
+            <div class="map-badge-icon">
+              <img src="assets/images/logo.svg" alt="MF Monogram">
+            </div>
+            <div class="map-badge-info">
+              <div class="map-badge-title">MAJU Karachi Flagship</div>
+              <div class="map-badge-coords">24.8569° N, 67.0643° E</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -502,6 +622,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <!-- Font Awesome -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <!-- Leaflet Interactive Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <!-- App scripts -->
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
@@ -509,17 +631,100 @@
   <script src="js/animations.js"></script>
 
   <script>
-    // Populate bestsellers grid dynamically from product data
+    // Populate bestsellers grid dynamically with subtle scroll-in fade animation
     (function() {
       const grid = document.getElementById('bestsellersGrid');
       if (!grid || !window.PRODUCTS) return;
       grid.innerHTML = '';
       const bestsellers = window.PRODUCTS.filter(p => p.badge === 'Bestseller' || p.badge === 'New').slice(0, 4);
-      bestsellers.forEach(p => {
+      
+      bestsellers.forEach((p, idx) => {
         const temp = document.createElement('div');
         temp.innerHTML = window.createProductCardHTML(p);
-        grid.appendChild(temp.firstElementChild);
+        const card = temp.firstElementChild;
+        if (card) {
+          card.classList.add('bestseller-fade-card');
+          card.style.setProperty('--card-idx', idx);
+          grid.appendChild(card);
+        }
       });
+
+      // Observe viewport entry for smooth fade-in reveal
+      if ('IntersectionObserver' in window) {
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('card-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        grid.querySelectorAll('.bestseller-fade-card').forEach(c => cardObserver.observe(c));
+      } else {
+        grid.querySelectorAll('.bestseller-fade-card').forEach(c => c.classList.add('card-visible'));
+      }
+    })();
+
+    // Initialize Interactive Store Locator Map (MAJU Karachi)
+    (function() {
+      const mapContainer = document.getElementById('atelierMap');
+      if (!mapContainer || typeof L === 'undefined') return;
+
+      // Coordinates for Mohammad Ali Jinnah University (MAJU), Lalazar / PECHS, Karachi
+      const majuCoords = [24.856900, 67.064330];
+
+      const map = L.map('atelierMap', {
+        center: majuCoords,
+        zoom: 15,
+        zoomControl: false,
+        scrollWheelZoom: false
+      });
+
+      // Luxury Dark Basemap Tiles
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://carto.com/" style="color:#d4af37;">CARTO</a> &copy; OpenStreetMap',
+        maxZoom: 19,
+        subdomains: 'abcd'
+      }).addTo(map);
+
+      // Add Zoom Control to Top Right
+      L.control.zoom({ position: 'topright' }).addTo(map);
+
+      // Custom Luxury Marker Icon
+      const customPin = L.divIcon({
+        className: 'luxury-map-pin-wrap',
+        html: `
+          <div class="luxury-map-pin">
+            <div class="pin-pulse"></div>
+            <div class="pin-marker">
+              <span class="pin-monogram">MF</span>
+            </div>
+          </div>
+        `,
+        iconSize: [44, 44],
+        iconAnchor: [22, 44],
+        popupAnchor: [0, -42]
+      });
+
+      const marker = L.marker(majuCoords, { icon: customPin }).addTo(map);
+
+      const popupHtml = `
+        <div class="luxury-map-popup">
+          <div class="popup-eyebrow">FLAGSHIP ATELIER</div>
+          <h4 class="popup-title">Maison Mujtaba</h4>
+          <p class="popup-loc">Mohammad Ali Jinnah University (MAJU), PECHS Block 6, Shahrah-e-Faisal, Karachi</p>
+          <div class="popup-time"><i class="fa-regular fa-clock"></i> Mon–Sat: 11:00 AM – 9:00 PM</div>
+          <a href="https://maps.google.com/?q=Mohammad+Ali+Jinnah+University+Karachi" target="_blank" rel="noopener noreferrer" class="popup-cta-btn">
+            Get Directions <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      `;
+
+      marker.bindPopup(popupHtml, { maxWidth: 280, className: 'luxury-leaflet-popup' }).openPopup();
     })();
 
     // Mobile nav toggle (overrides main.js's display-based logic for cleaner UX)
