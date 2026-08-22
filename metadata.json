@@ -1,0 +1,8 @@
+{
+  "name": "Mujtaba Fragrances",
+  "description": "Timeless luxury artisan fragrances crafted with rare ingredients and timeless sophistication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

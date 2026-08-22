@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — Mujtaba Fragrances</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">
+          <img src="assets/images/logo.svg" alt="MF Logo" style="width:100%;height:100%;object-fit:contain;">
+        </span>
+        <span class="nav-logo-text">
+          <span class="brand">Mujtaba</span>
+          <span class="tagline">Fragrances</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mens.html">Men</a></li>
+        <li><a href="womens.html">Women</a></li>
+        <li><a href="unisex.html">Unisex</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="confirmation-page">
+    <div class="container">
+      <div class="confirmation-box" id="confirmationBox">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </main>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('id');
+      const warn = params.get('warn');
+      const order = orderId ? window.MF.orders.get(orderId) : null;
+      const box = document.getElementById('confirmationBox');
+
+      if (!order) {
+        box.innerHTML = `
+          <h1>Order Not Found</h1>
+          <p class="msg">We couldn't find this order. If you believe this is an error, please contact our support team.</p>
+          <div class="confirmation-actions">
+            <a href="index.html" class="btn btn-primary"><span>Back to Home</span></a>
+          </div>
+        `;
+        return;
+      }
+
+      const itemsHtml = order.items.map(i =>
+        `<div class="summary-row"><span class="key">${i.name} (${i.sizeMl}ml) × ${i.qty}</span><span class="val">Rs ${i.lineTotal.toLocaleString('en-PK')}</span></div>`
+      ).join('');
+
+      const warnHtml = warn === 'webhook_not_configured'
+        ? `<div style="background:rgba(255,193,7,0.1);border:1px solid #ffc107;color:#ffc107;padding:14px 20px;border-radius:8px;margin-bottom:24px;font-size:13px;">
+            <strong>⚠️ Note:</strong> Your order was saved locally, but the Discord notification was not sent because the webhook is not yet configured. Please set up <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;">DISCORD_WEBHOOK_URL</code> on Vercel.
+          </div>`
+        : warn === 'api_unavailable'
+        ? `<div style="background:rgba(255,193,7,0.1);border:1px solid #ffc107;color:#ffc107;padding:14px 20px;border-radius:8px;margin-bottom:24px;font-size:13px;">
+            <strong>⚠️ Test mode:</strong> You're running locally without the Vercel serverless function. Your order was saved to this browser only. Deploy to Vercel with <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;">DISCORD_WEBHOOK_URL</code> set to receive real order notifications.
+          </div>`
+        : '';
+
+      box.innerHTML = `
+        <div class="confirmation-icon">
+          <svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"/></svg>
+        </div>
+        <h1>Order Confirmed</h1>
+        <div class="order-id">Order ID: ${order.orderId}</div>
+        ${warnHtml}
+        <p class="msg">
+          Thank you, ${order.customer.firstName}! Your order has been received and our team will reach out to you at <strong>${order.customer.email}</strong> within 24 hours to confirm payment and shipping details.
+        </p>
+        <div class="confirmation-summary">
+          <h4>Order Summary</h4>
+          ${itemsHtml}
+          <div class="summary-row"><span class="key">Subtotal</span><span class="val">Rs ${order.subtotal.toLocaleString('en-PK')}</span></div>
+          <div class="summary-row"><span class="key">Shipping</span><span class="val">${order.shipping === 0 ? 'FREE' : 'Rs ' + order.shipping.toLocaleString('en-PK')}</span></div>
+          <div class="summary-row"><span class="key">Tax</span><span class="val">Rs ${order.tax.toLocaleString('en-PK')}</span></div>
+          <div class="summary-row total"><span class="key">Total Paid</span><span class="val">Rs ${order.total.toLocaleString('en-PK')}</span></div>
+        </div>
+        <div class="confirmation-summary">
+          <h4>Shipping To</h4>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;">
+            <strong style="color:var(--text-primary);">${order.customer.firstName} ${order.customer.lastName}</strong><br>
+            ${order.customer.address}<br>
+            ${order.customer.city}, ${order.customer.state} ${order.customer.zip}<br>
+            ${order.customer.country}<br>
+            <span style="color:var(--text-muted);">${order.customer.phone} · ${order.customer.email}</span>
+          </p>
+          <p style="font-size:13px;margin-top:12px;color:var(--accent);">
+            <strong>Payment:</strong> ${order.payment.method}
+          </p>
+        </div>
+        <div class="confirmation-actions">
+          <a href="index.html" class="btn btn-primary"><span>Continue Shopping</span></a>
+          <a href="mens.html" class="btn"><span>Explore More</span></a>
+        </div>
+      `;
+    })();
+  </script>
+</body>
+</html>

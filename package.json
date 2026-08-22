@@ -1,0 +1,15 @@
+{
+  "name": "mujtaba-fragrances",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'No build step required'",
+    "start": "node server.js",
+    "lint": "echo 'No linting script needed'"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

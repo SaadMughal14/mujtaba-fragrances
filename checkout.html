@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Mujtaba Fragrances</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">
+          <img src="assets/images/logo.svg" alt="MF Logo" style="width:100%;height:100%;object-fit:contain;">
+        </span>
+        <span class="nav-logo-text">
+          <span class="brand">Mujtaba</span>
+          <span class="tagline">Fragrances</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mens.html">Men</a></li>
+        <li><a href="womens.html">Women</a></li>
+        <li><a href="unisex.html">Unisex</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="checkout-page">
+    <div class="container">
+      <h1 class="page-title">Checkout</h1>
+      <p class="page-subtitle">Complete your order below. We'll send a confirmation to your email.</p>
+
+      <div class="checkout-layout">
+        <form class="checkout-form" id="checkoutForm" novalidate>
+
+          <!-- Contact info -->
+          <section class="form-section">
+            <h3><span class="step-num">1</span> Contact Information</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com">
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 890">
+                <span class="err-msg"></span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Shipping address -->
+          <section class="form-section">
+            <h3><span class="step-num">2</span> Shipping Address</h3>
+            <div class="form-grid">
+              <div class="form-field full">
+                <label for="address">Street Address *</label>
+                <input type="text" id="address" name="address" required placeholder="123 Main St, Apt 4B">
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required>
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="state">State / Province *</label>
+                <input type="text" id="state" name="state" required>
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="zip">Postal Code (Optional)</label>
+                <input type="text" id="zip" name="zip" placeholder="75500 (Optional)">
+                <span class="err-msg"></span>
+              </div>
+              <div class="form-field">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" value="Pakistan" readonly style="background: rgba(255, 255, 255, 0.05); color: #ffffff; cursor: default; border: 1px solid rgba(212, 175, 55, 0.3);">
+                <span style="font-size: 11px; color: var(--accent); margin-top: 5px; display: block; font-weight: 500;">✓ Shipping exclusively within Pakistan</span>
+              </div>
+              <div class="form-field full">
+                <label for="notes">Order Notes (optional)</label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Gift message, delivery instructions, etc."></textarea>
+              </div>
+            </div>
+          </section>
+
+          <!-- Payment method -->
+          <section class="form-section">
+            <h3><span class="step-num">3</span> Payment Method</h3>
+            <div class="payment-methods">
+              <label class="payment-method">
+                <input type="radio" name="payment" value="cod" checked>
+                <span class="label-text">
+                  <strong>Cash on Delivery</strong>
+                  <span>Pay when your order arrives</span>
+                </span>
+              </label>
+              <label class="payment-method">
+                <input type="radio" name="payment" value="bank">
+                <span class="label-text">
+                  <strong>Bank Transfer</strong>
+                  <span>We'll send bank details after order confirmation</span>
+                </span>
+              </label>
+              <label class="payment-method">
+                <input type="radio" name="payment" value="card">
+                <span class="label-text">
+                  <strong>Credit / Debit Card</strong>
+                  <span>Secure card payment (processed separately)</span>
+                </span>
+              </label>
+            </div>
+          </section>
+        </form>
+
+        <!-- Order summary sidebar -->
+        <aside class="checkout-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-items" id="summaryItems">
+            <!-- Populated by JS -->
+          </div>
+          <div class="summary-row"><span class="key">Subtotal</span><span class="val" id="sumSubtotal">Rs 0</span></div>
+          <div class="summary-row"><span class="key">Shipping</span><span class="val" id="sumShipping">Rs 0</span></div>
+          <div class="summary-row"><span class="key">Tax (5%)</span><span class="val" id="sumTax">Rs 0</span></div>
+          <div class="summary-row total"><span class="key">Total</span><span class="val" id="sumTotal">Rs 0</span></div>
+          <button class="btn-place-order" id="placeOrderBtn">
+            <span class="spinner"></span>
+            <span class="btn-label">Place Order</span>
+          </button>
+          <p style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;line-height:1.5;">
+            By placing this order, you agree to our<br>
+            <a href="#" style="color:var(--accent);">Terms of Service</a> and <a href="#" style="color:var(--accent);">Privacy Policy</a>.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function() {
+      const cart = window.MF.cart;
+
+      // ---------- Render order summary ----------
+      function renderSummary() {
+        const items = cart.detailedItems();
+        if (items.length === 0) {
+          // Redirect to cart if empty
+          window.location.href = 'cart.html';
+          return;
+        }
+        document.getElementById('summaryItems').innerHTML = items.map(i => `
+          <div class="summary-item">
+            <img src="${i.image}" alt="${i.name}">
+            <div>
+              <div class="name">${i.name}</div>
+              <div class="sub">${i.sizeMl}ml × ${i.qty}</div>
+            </div>
+            <div class="price">Rs ${i.lineTotal.toLocaleString('en-PK')}</div>
+          </div>
+        `).join('');
+        document.getElementById('sumSubtotal').textContent = 'Rs ' + cart.subtotal().toLocaleString('en-PK');
+        document.getElementById('sumShipping').textContent = cart.shipping() === 0 ? 'FREE' : 'Rs ' + cart.shipping().toLocaleString('en-PK');
+        document.getElementById('sumTax').textContent = 'Rs ' + cart.tax().toLocaleString('en-PK');
+        document.getElementById('sumTotal').textContent = 'Rs ' + cart.total().toLocaleString('en-PK');
+      }
+      renderSummary();
+
+      // ---------- Form validation ----------
+      function validateField(field) {
+        const errEl = field.parentElement.querySelector('.err-msg');
+        field.parentElement.classList.remove('error');
+        if (errEl) errEl.textContent = '';
+
+        const val = field.value.trim();
+        if (field.hasAttribute('required') && !val) {
+          field.parentElement.classList.add('error');
+          if (errEl) errEl.textContent = 'This field is required';
+          return false;
+        }
+        if (field.type === 'email' && val) {
+          const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRe.test(val)) {
+            field.parentElement.classList.add('error');
+            if (errEl) errEl.textContent = 'Please enter a valid email address';
+            return false;
+          }
+        }
+        if (field.type === 'tel' && val) {
+          const phoneRe = /^[+\d\s\-()]{7,}$/;
+          if (!phoneRe.test(val)) {
+            field.parentElement.classList.add('error');
+            if (errEl) errEl.textContent = 'Please enter a valid phone number';
+            return false;
+          }
+        }
+        return true;
+      }
+
+      const form = document.getElementById('checkoutForm');
+      const requiredFields = form.querySelectorAll('[required]');
+      requiredFields.forEach(f => {
+        f.addEventListener('blur', () => validateField(f));
+        f.addEventListener('input', () => {
+          if (f.parentElement.classList.contains('error')) validateField(f);
+        });
+      });
+
+      // ---------- Place order ----------
+      document.getElementById('placeOrderBtn').addEventListener('click', async () => {
+        // Validate all fields
+        let allValid = true;
+        requiredFields.forEach(f => {
+          if (!validateField(f)) allValid = false;
+        });
+
+        if (!allValid) {
+          window.MF.toast('Please fix the errors in the form');
+          // Scroll to first error
+          const firstError = form.querySelector('.form-field.error');
+          if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        // Check cart not empty
+        if (cart.count() === 0) {
+          window.MF.toast('Your cart is empty');
+          return;
+        }
+
+        const btn = document.getElementById('placeOrderBtn');
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        const orderId = window.MF.genOrderId();
+        const paymentMethod = form.querySelector('input[name="payment"]:checked').value;
+        const paymentLabels = { cod: 'Cash on Delivery', bank: 'Bank Transfer', card: 'Credit / Debit Card' };
+
+        const order = {
+          orderId,
+          items: cart.detailedItems(),
+          subtotal: cart.subtotal(),
+          shipping: cart.shipping(),
+          tax: cart.tax(),
+          total: cart.total(),
+          customer: {
+            firstName: form.firstName.value.trim(),
+            lastName: form.lastName.value.trim(),
+            email: form.email.value.trim(),
+            phone: form.phone.value.trim(),
+            address: form.address.value.trim(),
+            city: form.city.value.trim(),
+            state: form.state.value.trim(),
+            zip: form.zip.value.trim(),
+            country: form.country.value,
+            notes: form.notes.value.trim() || null
+          },
+          payment: {
+            method: paymentLabels[paymentMethod]
+          }
+        };
+
+        try {
+          const resp = await fetch('/api/order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order)
+          });
+
+          // Try to parse JSON; if it fails (e.g., 404 HTML response in local dev),
+          // gracefully fall back to local-only order save.
+          let data = null;
+          const contentType = resp.headers.get('content-type') || '';
+          if (contentType.includes('application/json')) {
+            data = await resp.json();
+          } else {
+            // Non-JSON response — API likely not running (local dev without vercel dev)
+            console.warn('API returned non-JSON response, saving order locally only.');
+            window.MF.orders.save(order);
+            cart.clear();
+            window.location.href = `order-confirmation.html?id=${orderId}&warn=api_unavailable`;
+            return;
+          }
+
+          if (resp.ok && data.ok) {
+            window.MF.orders.save(order);
+            cart.clear();
+            window.location.href = `order-confirmation.html?id=${orderId}`;
+          } else {
+            // Discord webhook not configured, or other known error
+            if (data.error && data.error.includes('not configured')) {
+              console.warn('Discord webhook not configured — saving order locally only.');
+              window.MF.orders.save(order);
+              cart.clear();
+              window.location.href = `order-confirmation.html?id=${orderId}&warn=webhook_not_configured`;
+            } else {
+              throw new Error(data.error || 'Order submission failed');
+            }
+          }
+        } catch (err) {
+          console.error('Order error:', err);
+          // Network error or fetch failed — still save locally so user gets confirmation
+          if (err.message && err.message.includes('Failed to fetch')) {
+            console.warn('Network error — saving order locally only.');
+            window.MF.orders.save(order);
+            cart.clear();
+            window.location.href = `order-confirmation.html?id=${orderId}&warn=api_unavailable`;
+            return;
+          }
+          window.MF.toast('Order submission failed: ' + (err.message || 'Unknown error'));
+          btn.classList.remove('loading');
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

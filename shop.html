@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All Fragrances — Mujtaba Fragrances</title>
+  <meta name="description" content="Explore the full collection of luxury handcrafted perfumes by Mujtaba Fragrances. Fine fragrances for Men, Women, and Unisex.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark theme-shop page-inner">
+
+  <!-- ====================== NAVIGATION ====================== -->
+  <nav class="nav scrolled" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">
+          <img src="assets/images/logo.svg" alt="MF Logo">
+        </span>
+        <span class="nav-logo-text">
+          <span class="brand">Mujtaba</span>
+          <span class="tagline">Fragrances</span>
+        </span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="mens.html">Men</a></li>
+        <li><a href="womens.html">Women</a></li>
+        <li><a href="unisex.html">Unisex</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon" aria-label="Search" onclick="document.getElementById('shopSearchInput').focus();">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:14px;"></i>
+        </button>
+        <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====================== HERO & DISCOVER FILTER SECTION ====================== -->
+  <header style="padding: 130px 24px 40px; text-align: center; max-width: 1200px; margin: 0 auto;">
+    <span class="label-caps" style="color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; font-size: 11px; font-weight: 600;">The Complete Atelier Collection</span>
+    <h1 style="font-family: var(--font-heading); font-size: clamp(32px, 5vw, 56px); font-weight: 300; margin: 12px 0 16px; color: #fff;">
+      Discover Your Perfect <span class="italic-gold" style="font-style: italic; color: #d4af37;">Fragrance</span>
+    </h1>
+    <p style="font-size: 15px; color: var(--text-muted); max-width: 620px; margin: 0 auto 32px; line-height: 1.6; font-weight: 300;">
+      Filter by gender collection, scent family, or notes to find your signature scent. Every fragrance is formulated with peak oil concentration for 12+ hour longevity.
+    </p>
+
+    <!-- Search & Filters Container -->
+    <div style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 24px; padding: 24px; max-width: 900px; margin: 0 auto;">
+      <!-- Search Box -->
+      <div style="position: relative; margin-bottom: 20px;">
+        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.5);"></i>
+        <input type="text" id="shopSearchInput" placeholder="Search by name, note (e.g. Amber, Rose, Oud, Vanilla)..." 
+               style="width: 100%; padding: 12px 16px 12px 44px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; font-size: 14px; outline: none; transition: border-color 0.3s ease;">
+      </div>
+
+      <!-- Gender Category Filters -->
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;" id="genderFilters">
+        <button class="filter-btn active" data-gender="all" style="padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.1); color: #fff; transition: all 0.3s ease;">
+          All Fragrances
+        </button>
+        <button class="filter-btn" data-gender="men" style="padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(30, 58, 138, 0.3); color: #93c5fd; transition: all 0.3s ease;">
+          <i class="fa-solid fa-mars" style="margin-right: 4px;"></i> Men's (Blue Theme)
+        </button>
+        <button class="filter-btn" data-gender="women" style="padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(225, 29, 72, 0.4); background: rgba(136, 19, 55, 0.3); color: #f43f5e; transition: all 0.3s ease;">
+          <i class="fa-solid fa-venus" style="margin-right: 4px;"></i> Women's (Pink/Maroon Theme)
+        </button>
+        <button class="filter-btn" data-gender="unisex" style="padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(6, 78, 59, 0.3); color: #6ee7b7; transition: all 0.3s ease;">
+          <i class="fa-solid fa-venus-mars" style="margin-right: 4px;"></i> Unisex (Green Theme)
+        </button>
+      </div>
+
+      <!-- Scent Notes Filters -->
+      <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;" id="noteFilters">
+        <button class="note-btn active" data-note="all" style="padding: 4px 12px; border-radius: 14px; font-size: 11px; background: rgba(212, 175, 55, 0.2); border: 1px solid rgba(212, 175, 55, 0.4); color: #fff; cursor: pointer;">All Families</button>
+        <button class="note-btn" data-note="oud" style="padding: 4px 12px; border-radius: 14px; font-size: 11px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ccc; cursor: pointer;">Oud & Woods</button>
+        <button class="note-btn" data-note="amber" style="padding: 4px 12px; border-radius: 14px; font-size: 11px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ccc; cursor: pointer;">Amber & Resin</button>
+        <button class="note-btn" data-note="rose" style="padding: 4px 12px; border-radius: 14px; font-size: 11px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ccc; cursor: pointer;">Rose & Floral</button>
+        <button class="note-btn" data-note="citrus" style="padding: 4px 12px; border-radius: 14px; font-size: 11px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #ccc; cursor: pointer;">Fresh & Citrus</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================== PRODUCT GRID ====================== -->
+  <main style="max-width: 1280px; margin: 0 auto; padding: 0 24px 80px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <div style="font-size: 14px; color: var(--text-muted);" id="productCount">Showing all fragrances</div>
+      <select id="sortSelect" style="background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; outline: none; cursor: pointer;">
+        <option value="featured">Sort: Featured</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="name">Name: A to Z</option>
+      </select>
+    </div>
+
+    <div class="product-grid" id="shopGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 28px;">
+      <!-- Populated dynamically via JS -->
+    </div>
+  </main>
+
+  <div style="padding: 40px 0; text-align: center; font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px;">
+    © 2026 MUJTABA FRAGRANCES. ALL RIGHTS RESERVED.
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    (function() {
+      const grid = document.getElementById('shopGrid');
+      const searchInput = document.getElementById('shopSearchInput');
+      const genderBtns = document.querySelectorAll('#genderFilters .filter-btn');
+      const noteBtns = document.querySelectorAll('#noteFilters .note-btn');
+      const countEl = document.getElementById('productCount');
+      const sortSelect = document.getElementById('sortSelect');
+
+      let currentGender = 'all';
+      let currentNote = 'all';
+      let currentSearch = '';
+      let currentSort = 'featured';
+
+      function renderShop() {
+        if (!grid || !window.PRODUCTS) return;
+
+        let filtered = window.PRODUCTS.filter(p => {
+          // Gender filter
+          if (currentGender !== 'all' && p.collection !== currentGender) return false;
+          
+          // Note filter
+          if (currentNote !== 'all') {
+            const notesText = JSON.stringify(p.notes || {}).toLowerCase() + ' ' + (p.tagline || '').toLowerCase() + ' ' + (p.description || '').toLowerCase();
+            if (!notesText.includes(currentNote)) return false;
+          }
+
+          // Search text
+          if (currentSearch.trim()) {
+            const q = currentSearch.toLowerCase();
+            const searchable = (p.name + ' ' + p.collection + ' ' + p.tagline + ' ' + p.description + ' ' + JSON.stringify(p.notes || {})).toLowerCase();
+            if (!searchable.includes(q)) return false;
+          }
+
+          return true;
+        });
+
+        // Sorting
+        if (currentSort === 'price-low') {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (currentSort === 'price-high') {
+          filtered.sort((a, b) => b.price - a.price);
+        } else if (currentSort === 'name') {
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        countEl.textContent = `Showing ${filtered.length} of ${window.PRODUCTS.length} fragrances`;
+        grid.innerHTML = '';
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px dashed rgba(255,255,255,0.15);">
+              <i class="fa-solid fa-bottle-droplet" style="font-size: 32px; color: var(--text-muted); margin-bottom: 12px;"></i>
+              <h3 style="font-weight: 300; font-size: 20px; color: #fff;">No matching fragrances found</h3>
+              <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Try clearing your filters or search query.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach(p => {
+          const temp = document.createElement('div');
+          temp.innerHTML = window.createProductCardHTML(p);
+          grid.appendChild(temp.firstElementChild);
+        });
+      }
+
+      // Filter events
+      genderBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          genderBtns.forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'rgba(255,255,255,0.05)';
+            b.style.boxShadow = 'none';
+          });
+          btn.classList.add('active');
+          btn.style.background = btn.dataset.gender === 'men' ? 'rgba(30, 58, 138, 0.7)' : (btn.dataset.gender === 'women' ? 'rgba(136, 19, 55, 0.7)' : (btn.dataset.gender === 'unisex' ? 'rgba(6, 78, 59, 0.7)' : 'rgba(255,255,255,0.2)'));
+          currentGender = btn.dataset.gender;
+          renderShop();
+        });
+      });
+
+      noteBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          noteBtns.forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'rgba(255,255,255,0.05)';
+          });
+          btn.classList.add('active');
+          btn.style.background = 'rgba(212, 175, 55, 0.3)';
+          currentNote = btn.dataset.note;
+          renderShop();
+        });
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value;
+        renderShop();
+      });
+
+      sortSelect.addEventListener('change', (e) => {
+        currentSort = e.target.value;
+        renderShop();
+      });
+
+      // Initial render
+      renderShop();
+    })();
+  </script>
+</body>
+</html>

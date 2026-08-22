@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mujtaba Fragrances — Men's Collection</title>
+  <meta name="description" content="Explore Mujtaba Fragrances' men's collection. Five signature scents — each a full-screen olfactory journey.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body class="theme-mens page-inner">
+
+  <!-- ====================== NAVIGATION ====================== -->
+  <nav class="nav scrolled" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">
+          <img src="assets/images/logo.svg" alt="MF Logo">
+        </span>
+        <span class="nav-logo-text">
+          <span class="brand">Mujtaba</span>
+          <span class="tagline">Men</span>
+        </span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="mens.html" class="active">Men</a></li>
+        <li><a href="womens.html">Women</a></li>
+        <li><a href="unisex.html">Unisex</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:14px;"></i>
+        </button>
+        <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="section-dots" id="sectionDots">
+    <button class="section-dot active" data-section="0" aria-label="Hero"></button>
+    <button class="section-dot" data-section="1" aria-label="Fragrance 1"></button>
+    <button class="section-dot" data-section="2" aria-label="Fragrance 2"></button>
+    <button class="section-dot" data-section="3" aria-label="Fragrance 3"></button>
+    <button class="section-dot" data-section="4" aria-label="Fragrance 4"></button>
+    <button class="section-dot" data-section="5" aria-label="Fragrance 5"></button>
+  </div>
+
+  <main class="collection-page">
+    <div class="snap-container" id="snapContainer">
+      <!-- Sections populated by JS below -->
+    </div>
+  </main>
+
+  <!-- ====================== SCRIPTS ====================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/collection.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+
+  <script>
+    // Render men's fragrance scroll-snap sections from product data
+    (function() {
+      const container = document.getElementById('snapContainer');
+      const dotsContainer = document.getElementById('sectionDots');
+      if (!container || !window.PRODUCTS) return;
+
+      const products = window.productsByCollection('men');
+
+      // Sync dot count
+      dotsContainer.innerHTML = products.map((_, i) =>
+        `<button class="section-dot ${i === 0 ? 'active' : ''}" data-section="${i}" aria-label="Fragrance ${i+1}"></button>`
+      ).join('');
+
+      const butterflyColors = [
+        ['#D4AF37', '#E0C98E'],
+        ['#5B9BBD', '#7DB5D1'],
+        ['#F5E6A8', '#F9ECA8'],
+        ['#1E3A5F', '#2C5282'],
+        ['#A8D8E8', '#C8E6F0']
+      ];
+
+      products.forEach((p, idx) => {
+        const [c1, c2] = butterflyColors[idx % butterflyColors.length];
+        const section = document.createElement('section');
+        section.className = 'snap-section';
+        section.dataset.fragrance = idx;
+        section.id = `fragrance-${idx}`;
+
+        const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
+        const price100 = p.sizes && p.sizes[1] ? p.sizes[1].price : Math.round(p.price * 1.6);
+
+        section.innerHTML = `
+          <div class="container">
+            <div class="fragrance-grid">
+              <div class="fragrance-content reveal-stagger">
+                <span class="label-caps">Signature Men's Fragrance · ${String(idx+1).padStart(2,'0')}</span>
+                <h1>${p.name.replace(/ /g, '<br>')}</h1>
+                <div class="fragrance-price" id="priceDisplay-${p.id}">Rs ${price50.toLocaleString('en-PK')}</div>
+                <p class="fragrance-desc">${p.description}</p>
+                
+                <div class="card-size-selector" style="margin-bottom: 16px;">
+                  <span style="font-size:12px; color:var(--text-muted); align-self:center; margin-right:8px;">Size:</span>
+                  <button type="button" class="size-pill active" onclick="
+                    this.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('priceDisplay-${p.id}').textContent = 'Rs ${price50.toLocaleString('en-PK')}';
+                    document.getElementById('addBtn-${p.id}').dataset.sizeMl = '50';
+                  ">50ml</button>
+                  <button type="button" class="size-pill" onclick="
+                    this.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('priceDisplay-${p.id}').textContent = 'Rs ${price100.toLocaleString('en-PK')}';
+                    document.getElementById('addBtn-${p.id}').dataset.sizeMl = '100';
+                  ">100ml</button>
+                </div>
+
+                <div class="fragrance-actions" style="display:flex; gap:12px; align-items:center;">
+                  <button class="btn-glass" id="addBtn-${p.id}" data-add-to-cart="${p.id}" data-size-ml="50">
+                    <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+                    <span>Add to Cart</span>
+                  </button>
+                  <button type="button" class="btn-quick-view" style="width:44px; height:44px; border-radius:12px; font-size:16px;" title="Quick View" onclick="window.openQuickView('${p.id}');">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                  <a href="product.html?id=${p.id}" class="btn-target" style="padding:12px 20px;">View Details</a>
+                </div>
+              </div>
+              <div class="fragrance-image-wrap reveal skeleton-loader">
+                <div class="butterfly butterfly-1">
+                  <svg viewBox="0 0 60 60">
+                    <path d="M30 30 C 20 10, 5 15, 8 30 C 5 45, 20 50, 30 30 Z" fill="${c1}" opacity="0.9"/>
+                    <path d="M30 30 C 40 10, 55 15, 52 30 C 55 45, 40 50, 30 30 Z" fill="${c2}" opacity="0.85"/>
+                    <line x1="30" y1="15" x2="30" y2="45" stroke="#0F2027" stroke-width="1.5"/>
+                  </svg>
+                </div>
+                <div class="butterfly butterfly-2">
+                  <svg viewBox="0 0 60 60">
+                    <path d="M30 30 C 22 14, 8 18, 10 30 C 8 42, 22 46, 30 30 Z" fill="${c1}" opacity="0.85"/>
+                    <path d="M30 30 C 38 14, 52 18, 50 30 C 52 42, 38 46, 30 30 Z" fill="${c2}" opacity="0.8"/>
+                    <line x1="30" y1="18" x2="30" y2="42" stroke="#0F2027" stroke-width="1.2"/>
+                  </svg>
+                </div>
+                ${idx % 2 === 0 ? `
+                <div class="butterfly butterfly-3">
+                  <svg viewBox="0 0 60 60">
+                    <path d="M30 30 C 24 18, 12 22, 14 30 C 12 38, 24 42, 30 30 Z" fill="${c2}" opacity="0.85"/>
+                    <path d="M30 30 C 36 18, 48 22, 46 30 C 48 38, 36 42, 30 30 Z" fill="${c1}" opacity="0.8"/>
+                    <line x1="30" y1="22" x2="30" y2="38" stroke="#0F2027" stroke-width="1"/>
+                  </svg>
+                </div>` : ''}
+                <img src="${p.image}" alt="${p.name} perfume bottle" class="fragrance-image" onload="this.parentElement.classList.remove('skeleton-loader');" onerror="this.parentElement.classList.remove('skeleton-loader');">
+                <div class="fragrance-image-specs">
+                  <div class="img-stat-box">
+                    <span class="img-stat-num">EDP</span>
+                    <span class="img-stat-lbl">Eau de Parfum</span>
+                  </div>
+                  <div class="img-stat-sep"></div>
+                  <div class="img-stat-box">
+                    <span class="img-stat-num">${p.longevity.split(' ')[0]}</span>
+                    <span class="img-stat-lbl">Longevity</span>
+                  </div>
+                  <div class="img-stat-sep"></div>
+                  <div class="img-stat-box">
+                    <span class="img-stat-num">${p.sillage || 'Strong'}</span>
+                    <span class="img-stat-lbl">Sillage</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          ${idx === 0 ? `
+          <div class="new-fragrance-badge">
+            <svg viewBox="0 0 120 120">
+              <defs>
+                <path id="circle-text-mens" d="M 60, 60 m -45, 0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"/>
+              </defs>
+              <text class="badge-text">
+                <textPath href="#circle-text-mens" startOffset="0">NEW FRAGRANCE · NEW FRAGRANCE · NEW FRAGRANCE ·</textPath>
+              </text>
+            </svg>
+            <div class="badge-inner">NEW</div>
+          </div>` : ''}
+          <div class="scroll-hint">${idx === products.length - 1 ? 'End of Collection' : 'Scroll'}</div>
+        `;
+        container.appendChild(section);
+      });
+
+      // Re-init collection.js
+      if (window.MF && window.MF.initCollection) {
+        window.MF.initCollection();
+      }
+
+      // Activate first section reveal animations
+      requestAnimationFrame(() => {
+        const firstSection = document.querySelector('.snap-section');
+        if (firstSection) {
+          firstSection.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+            el.classList.add('active');
+          });
+        }
+      });
+
+      // Mobile nav toggle
+      const toggle = document.getElementById('navToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', () => {
+          toggle.classList.toggle('active');
+          links.classList.toggle('open');
+        });
+        links.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            links.classList.remove('open');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

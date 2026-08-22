@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" width="280" height="200">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E1A4"/>
+      <stop offset="40%" stop-color="#D4B074"/>
+      <stop offset="60%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#A8884A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer decorative frame: thin rectangle with cut corners (premium certificate feel) -->
+  <path d="M 20 10 L 260 10 L 270 20 L 270 180 L 260 190 L 20 190 L 10 180 L 10 20 Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="1.2"/>
+  <path d="M 26 18 L 254 18 L 262 26 L 262 174 L 254 182 L 26 182 L 18 174 L 18 26 Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Decorative corner ornaments -->
+  <g fill="url(#goldGrad)">
+    <circle cx="20" cy="10" r="2"/>
+    <circle cx="260" cy="10" r="2"/>
+    <circle cx="20" cy="190" r="2"/>
+    <circle cx="260" cy="190" r="2"/>
+  </g>
+
+  <!-- ============== THE MONOGRAM: clear, bold, serif M and F ============== -->
+  <!-- Using thick filled letterforms for maximum legibility -->
+
+  <!-- LETTER M (filled, serif, on the left) -->
+  <g fill="url(#goldGrad)">
+    <!-- M body: a thick M shape with serifs -->
+    <path d="
+      M 40 50
+      L 50 50
+      L 50 145
+      L 45 145
+      L 45 60
+      L 80 130
+      L 85 130
+      L 120 60
+      L 120 145
+      L 115 145
+      L 115 50
+      L 125 50
+      L 92 138
+      L 78 138
+      Z
+    "/>
+    <!-- Serifs at top of M verticals -->
+    <rect x="36" y="46" width="18" height="6"/>
+    <rect x="116" y="46" width="18" height="6"/>
+    <!-- Serifs at bottom of M verticals -->
+    <rect x="36" y="145" width="18" height="6"/>
+    <rect x="111" y="145" width="18" height="6"/>
+  </g>
+
+  <!-- LETTER F (filled, serif, on the right) -->
+  <g fill="url(#goldGrad)">
+    <!-- F vertical stem -->
+    <rect x="165" y="48" width="16" height="108"/>
+    <!-- F top horizontal arm (longer) -->
+    <rect x="160" y="48" width="80" height="14"/>
+    <!-- F middle horizontal arm (shorter) -->
+    <rect x="160" y="95" width="60" height="12"/>
+    <!-- Serifs -->
+    <rect x="156" y="44" width="14" height="6"/> <!-- top-left serif -->
+    <rect x="176" y="44" width="14" height="6"/> <!-- top-right serif -->
+    <rect x="156" y="152" width="14" height="6"/> <!-- bottom-left serif -->
+    <rect x="176" y="152" width="14" height="6"/> <!-- bottom-right serif -->
+    <rect x="232" y="44" width="12" height="6"/> <!-- top arm right serif -->
+    <rect x="212" y="91" width="12" height="6"/> <!-- mid arm right serif -->
+  </g>
+
+  <!-- Decorative connector: thin gold line between M and F with center diamond -->
+  <g opacity="0.85">
+    <line x1="135" y1="100" x2="158" y2="100" stroke="url(#goldGrad)" stroke-width="1.2"/>
+    <polygon points="146,93 153,100 146,107 139,100" fill="url(#goldGrad)"/>
+  </g>
+
+  <!-- Bottom decorative flourish (small centered ornament) -->
+  <g fill="url(#goldGrad)" opacity="0.85">
+    <line x1="100" y1="170" x2="135" y2="170" stroke="url(#goldGrad)" stroke-width="0.6"/>
+    <line x1="145" y1="170" x2="180" y2="170" stroke="url(#goldGrad)" stroke-width="0.6"/>
+    <polygon points="140,165 144,170 140,175 136,170"/>
+  </g>
+</svg>

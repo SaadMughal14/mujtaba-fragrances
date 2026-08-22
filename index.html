@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mujtaba Fragrances — Timeless Luxury, Uniquely Yours</title>
+  <meta name="description" content="Discover artisan fragrances crafted with rare ingredients and timeless sophistication. Explore Mujtaba Fragrances' men's and women's collections.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body class="page-home">
+
+  <!-- ====================== NAVIGATION ====================== -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">
+          <img src="assets/images/logo.svg" alt="MF Logo">
+        </span>
+        <span class="nav-logo-text">
+          <span class="brand">Mujtaba</span>
+          <span class="tagline">Fragrances</span>
+        </span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="mens.html">Men</a></li>
+        <li><a href="womens.html">Women</a></li>
+        <li><a href="unisex.html">Unisex</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:14px;"></i>
+        </button>
+        <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====================== HERO ====================== -->
+  <header class="hero">
+    <!-- Hero background video -->
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_hero_video.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_hero_video.mp4" type="video/webm">
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="label-caps gsap-hero-item">Beyond Scent, An Experience</span>
+          <h1 class="hero-title gsap-hero-item">
+            <span class="hero-line-1">Timeless Luxury,</span>
+            <span class="hero-line-2 italic-gold text-gradient-gold">Uniquely Yours</span>
+          </h1>
+          <p class="gsap-hero-item">Discover artisan fragrances crafted with rare ingredients and timeless sophistication. Each bottle holds a story, distilled from the world's most precious botanicals.</p>
+          <div class="hero-cta gsap-hero-item">
+            <a href="shop.html" class="btn-primary-3d">
+              <span>Discover Collection</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating UI Card anchored in right corner -->
+    <div class="floating-card glass-panel gsap-hero-card" onclick="window.location.href='shop.html'" style="cursor: pointer;">
+      <div class="floating-card-thumb">
+        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/hero-noir.png" alt="Shop All Fragrances" class="thumb-img">
+        <div class="liquid-shine"></div>
+      </div>
+      <h4>Explore Fragrances</h4>
+      <div class="sub">Extrait de Parfum</div>
+      <p>Intense. Elegant. Unforgettable.</p>
+      <a href="shop.html" class="link">Shop All Products
+        <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ====================== CURATED COLLECTIONS ====================== -->
+  <section id="collections" class="collections">
+    <div class="container">
+      <div class="collections-split">
+        <div class="collections-intro gsap-fade-up">
+          <span class="label-caps">Explore the World of Mujtaba</span>
+          <h2>Curated Collections,<br><span class="italic-gold">Timeless Scents</span></h2>
+          <div class="ornament-line-wrap">
+            <span class="ornament-line"></span>
+          </div>
+          <p>Discover our signature collections, each crafted to evoke emotion, inspire memories, and define your essence. From the depths of oud to the brightness of citrus, every fragrance tells a story.</p>
+        </div>
+        <div class="collections-grid gsap-stagger">
+          <article class="glass-card collection-glass-card" onclick="window.location.href='mens.html'">
+            <img class="card-image" src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/collection-signature.jpg" alt="Signature Collection">
+            <div class="card-body">
+              <div class="card-label">Collection</div>
+              <h3>Signature</h3>
+              <a href="mens.html" class="card-link" onclick="event.stopPropagation();">View
+                <svg class="btn-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+              </a>
+            </div>
+          </article>
+          <article class="glass-card collection-glass-card" onclick="window.location.href='womens.html'">
+            <img class="card-image" src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/collection-lumiere.jpg" alt="Lumière Collection">
+            <div class="card-body">
+              <div class="card-label">Collection</div>
+              <h3>Lumière</h3>
+              <a href="womens.html" class="card-link" onclick="event.stopPropagation();">View
+                <svg class="btn-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+              </a>
+            </div>
+          </article>
+          <article class="glass-card collection-glass-card" onclick="window.location.href='mens.html'">
+            <img class="card-image" src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/collection-oud.jpg" alt="Oud Collection">
+            <div class="card-body">
+              <div class="card-label">Collection</div>
+              <h3>Oud</h3>
+              <a href="mens.html" class="card-link" onclick="event.stopPropagation();">View
+                <svg class="btn-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+              </a>
+            </div>
+          </article>
+          <article class="glass-card collection-glass-card" onclick="window.location.href='womens.html'">
+            <img class="card-image" src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/collection-fresh.jpg" alt="Fresh Collection">
+            <div class="card-body">
+              <div class="card-label">Collection</div>
+              <h3>Fresh</h3>
+              <a href="womens.html" class="card-link" onclick="event.stopPropagation();">View
+                <svg class="btn-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+              </a>
+            </div>
+          </article>
+          <article class="glass-card collection-glass-card" onclick="window.location.href='unisex.html'">
+            <img class="card-image" src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/amber-gold.jpg" alt="Unisex Collection" onerror="this.src='https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/lumiere-botanique.jpg';">
+            <div class="card-body">
+              <div class="card-label">Collection</div>
+              <h3>Unisex</h3>
+              <a href="unisex.html" class="card-link" onclick="event.stopPropagation();">View
+                <svg class="btn-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+              </a>
+            </div>
+          </article>
+          <article class="glass-card collection-glass-card" onclick="window.location.href='shop.html'">
+            <img class="card-image" src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/hero-noir.png" alt="Private Reserve Collection">
+            <div class="card-body">
+              <div class="card-label">Atelier</div>
+              <h3>Private Reserve</h3>
+              <a href="shop.html" class="card-link" onclick="event.stopPropagation();">View
+                <svg class="btn-arrow" viewBox="0 0 24 24" style="width:12px;height:12px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FEATURE (01) ====================== -->
+  <section id="feature">
+    <div class="feature-margin-top-line"></div>
+    <div class="container">
+      <div class="feature-split">
+        <div class="feature-text gsap-fade-up">
+          <div class="feature-num-wrap">
+            <span class="feature-num" id="featureNum">(01)</span>
+            <span class="feature-num-accent">HERITAGE</span>
+          </div>
+          <h2 id="featureTitle">Ethically Crafted,<br><span class="italic-gold">Exquisitely Sourced</span></h2>
+          <p id="featureDesc">We partner with world-renowned perfumers and source the finest, sustainable ingredients. Every fragrance is a testament to our commitment to craft, community, and the natural world that inspires us.</p>
+          <a href="shop.html" class="btn-outline">
+            <span>Learn More</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+          </a>
+        </div>
+        <div class="feature-badge-wrap gsap-fade-up">
+          <div class="feature-3d-wrap luxury-gold-seal" id="feature3dContainer">
+            <div class="seal-ring-outer"></div>
+            <div class="seal-ring-inner"></div>
+            <div class="seal-gem-core">
+              <span class="seal-monogram">MF</span>
+            </div>
+            <div class="seal-sparkle sp-1"></div>
+            <div class="seal-sparkle sp-2"></div>
+            <div class="seal-sparkle sp-3"></div>
+            <div class="seal-sparkle sp-4"></div>
+            <div class="circular-badge-overlay">
+              <svg class="badge-svg" viewBox="0 0 220 220">
+                <defs>
+                  <path id="circle-text" d="M 110, 110 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0"/>
+                </defs>
+                <text class="badge-text">
+                  <textPath href="#circle-text" startOffset="0">CRAFTED WITH CARE · CONSCIOUS BY NATURE · CRAFTED WITH CARE · CONSCIOUS BY NATURE ·</textPath>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div class="feature-nav">
+            <button aria-label="Previous" id="featurePrevBtn">
+              <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></svg>
+            </button>
+            <button aria-label="Next" id="featureNextBtn">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feature-margin-bottom-line"></div>
+  </section>
+
+  <!-- ====================== CRAFTED FOR EVERY ESSENCE ====================== -->
+  <section id="products">
+    <div class="container">
+      <div class="section-header section-center gsap-fade-up">
+        <span class="label-caps">Best Sellers</span>
+        <h2>Crafted for Every <span class="italic-gold">Essence</span></h2>
+        <p style="margin: 0 auto;">Explore our curated collections, each fragrance a story of elegance, emotion, and timeless artistry.</p>
+      </div>
+      <div class="product-grid gsap-stagger" id="bestsellersGrid">
+        <!-- Populated by JS -->
+      </div>
+      <div class="section-cta gsap-fade-up">
+        <a href="shop.html" class="btn-outline">
+          <span>View All Collections</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CUSTOMER TESTIMONIALS ====================== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-header section-center gsap-fade-up">
+        <span class="label-caps">Client Voices</span>
+        <h2>Echoes of <span class="italic-gold">Excellence</span></h2>
+        <p style="margin: 0 auto;">Discover why fragrance connoisseurs around the world choose Mujtaba Fragrances for their signature moments.</p>
+      </div>
+
+      <div class="testimonial-slider-wrap gsap-fade-up" id="testimonialSliderWrap">
+        <button class="slider-arrow prev" id="testiPrevBtn" aria-label="Previous Testimonial">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <div class="testimonial-track-container" id="testiTrackContainer">
+          <div class="testimonial-track" id="testiTrack">
+            <!-- Slide 1 -->
+            <div class="testimonial-card">
+              <div class="testi-quote-icon">“</div>
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">Noir Marin is nothing short of majestic. The contrast of crisp ocean notes and warm ambergris creates an aura of effortless authority. I receive compliments every single time I wear it.</p>
+              <div class="testimonial-author">
+                <span class="author-name">Shahzaib K.</span>
+                <span class="author-title">Verified Buyer · Karachi</span>
+                <span class="author-product">Noir Marin (100ml)</span>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="testimonial-card">
+              <div class="testi-quote-icon">“</div>
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">Rose Impériale is true haute parfumerie. The Damask rose paired with saffron and royal oud feels like wrapped in pure silk and velvet. The longevity is incredible—easily 18+ hours.</p>
+              <div class="testimonial-author">
+                <span class="author-name">Ayesha M.</span>
+                <span class="author-title">Verified Buyer · Lahore</span>
+                <span class="author-product">Rose Impériale (100ml)</span>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="testimonial-card">
+              <div class="testi-quote-icon">“</div>
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">Amber Gold is hands down the finest oriental gourmand in my collection. Rich, warm labdanum with golden saffron and cocoa. Unboxing it was a true luxury experience!</p>
+              <div class="testimonial-author">
+                <span class="author-name">Tariq R.</span>
+                <span class="author-title">Verified Buyer · Islamabad</span>
+                <span class="author-product">Amber Gold (100ml)</span>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="testimonial-card">
+              <div class="testi-quote-icon">“</div>
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">Aqua Céleste is my ultimate signature scent. Crisp, crystalline, and refined. The packaging and bottle craftsmanship rival any niche house in Paris or Dubai.</p>
+              <div class="testimonial-author">
+                <span class="author-name">Hamza B.</span>
+                <span class="author-title">Verified Buyer · Dubai, UAE</span>
+                <span class="author-product">Aqua Céleste (50ml)</span>
+              </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="testimonial-card">
+              <div class="testi-quote-icon">“</div>
+              <div class="stars">★★★★★</div>
+              <p class="testimonial-text">Oud Royal is a masterpiece of balance. Wild Cambodian agarwood smoothed out with Taif rose and smoky incense. Magnificent projection without being overpowering.</p>
+              <div class="testimonial-author">
+                <span class="author-name">Zainab S.</span>
+                <span class="author-title">Verified Buyer · London, UK</span>
+                <span class="author-product">Oud Royal (100ml)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="slider-arrow next" id="testiNextBtn" aria-label="Next Testimonial">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+        <div class="slider-dots" id="testiDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== REPLICA LUXURY FOOTER (DESKTOP WEB VIEW & DEDICATED MOBILE VIEW) ====================== -->
+  <footer class="replica-footer" id="footer">
+    <!-- DESKTOP WEB VIEW (PERCENTAGE OVERLAY ON DEDICATED FULL LANDSCAPE ARTWORK) -->
+    <div class="replica-footer-desktop">
+      <div class="replica-footer-relative-wrap">
+        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_big_footer.png" alt="Mujtaba Fragrances Footer Background" class="replica-footer-bg-img" />
+        
+        <!-- Top Left: Newsletter Section -->
+        <div class="replica-newsletter-overlay">
+          <span class="replica-eyebrow">FEEL FRAGRANCE</span>
+          <h2>Stay connected to elegance<br>in every spray</h2>
+          <p>Subscribe for early access to new launches, limited editions, and curated fragrance stories delivered to your inbox.</p>
+          
+          <form class="replica-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to Mujtaba Fragrances.');">
+            <input type="email" placeholder="Enter your email" required aria-label="Enter your email">
+            <button type="submit" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Center: Big Brand Header -->
+        <div class="replica-brand-overlay">
+          <h2 class="replica-brand-title">MUJTABA FRAGRANCES</h2>
+        </div>
+
+        <!-- Middle-Bottom: 4-Column Navigation Links -->
+        <div class="replica-nav-overlay">
+          <div class="replica-nav-col">
+            <h4>SHOP</h4>
+            <ul>
+              <li><a href="mens.html">All Fragrances</a></li>
+              <li><a href="mens.html">Discovery Set</a></li>
+              <li><a href="#collections">Home Scenting</a></li>
+              <li><a href="#collections">Gift Sets</a></li>
+            </ul>
+          </div>
+          <div class="replica-nav-col">
+            <h4>DISCOVER</h4>
+            <ul>
+              <li><a href="#about">Our Story</a></li>
+              <li><a href="#collections">The Ingredients</a></li>
+              <li><a href="#collections">The Process</a></li>
+              <li><a href="mens.html">Fragrance Finder</a></li>
+            </ul>
+          </div>
+          <div class="replica-nav-col">
+            <h4>CONTACT</h4>
+            <ul>
+              <li><a href="#">Karachi, Pakistan</a></li>
+              <li><a href="mailto:atelier@mujtaba-fragrances.com">atelier@mujtaba-fragrances.com</a></li>
+              <li><a href="tel:+923000000000">+92 300 0000000</a></li>
+              <li><a href="services.html">Concierge Services</a></li>
+            </ul>
+          </div>
+          <div class="replica-nav-col">
+            <h4>FOLLOW US</h4>
+            <ul>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Pinterest</a></li>
+              <li><a href="#">TikTok</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom: Legal / Copyright Bar -->
+        <div class="replica-legal-overlay">
+          <div class="replica-legal-inner">
+            <span class="replica-copyright">© 2026 MUJTABA FRAGRANCES. ALL RIGHTS RESERVED.</span>
+            <div class="replica-legal-links">
+              <a href="privacy.html">PRIVACY</a>
+              <a href="terms.html">TERMS</a>
+              <a href="cookies.html">COOKIES</a>
+              <a href="legal.html">LEGAL</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MOBILE VIEW (DEDICATED LUXURY MOBILE LAYOUT & ARTWORK) -->
+    <div class="replica-footer-mobile">
+      <!-- Mobile Hero Newsletter Banner -->
+      <div class="replica-mobile-hero-card">
+        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_Body_hero.png" alt="Mujtaba Fragrances Elegance" class="replica-mobile-hero-img">
+        <div class="replica-mobile-hero-content">
+          <span class="replica-eyebrow">FEEL FRAGRANCE</span>
+          <h2>Stay connected to elegance<br>in every spray</h2>
+          <p>Subscribe for early access to new launches, limited editions, and fragrance stories.</p>
+          <form class="replica-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to Mujtaba Fragrances.');">
+            <input type="email" placeholder="Enter your email" required aria-label="Enter your email">
+            <button type="submit" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Mobile Brand Title Section -->
+      <div class="replica-mobile-brand">
+        <h2 class="replica-brand-title">MUJTABA FRAGRANCES</h2>
+      </div>
+
+      <!-- Mobile 2x2 Nav Links -->
+      <div class="replica-mobile-nav">
+        <div class="replica-nav-col">
+          <h4>SHOP</h4>
+          <ul>
+            <li><a href="mens.html">All Fragrances</a></li>
+            <li><a href="mens.html">Discovery Set</a></li>
+            <li><a href="#collections">Home Scenting</a></li>
+            <li><a href="#collections">Gift Sets</a></li>
+          </ul>
+        </div>
+        <div class="replica-nav-col">
+          <h4>DISCOVER</h4>
+          <ul>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#collections">The Ingredients</a></li>
+            <li><a href="#collections">The Process</a></li>
+            <li><a href="mens.html">Fragrance Finder</a></li>
+          </ul>
+        </div>
+        <div class="replica-nav-col">
+          <h4>CONTACT</h4>
+          <ul>
+            <li><a href="#">Karachi, Pakistan</a></li>
+            <li><a href="mailto:atelier@mujtaba-fragrances.com">atelier@mujtaba-fragrances.com</a></li>
+            <li><a href="tel:+923000000000">+92 300 0000000</a></li>
+            <li><a href="services.html">Concierge Services</a></li>
+          </ul>
+        </div>
+        <div class="replica-nav-col">
+          <h4>FOLLOW US</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Pinterest</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mobile Bottom Dark Landscape Bar -->
+      <div class="replica-mobile-landscape">
+        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_big_footer.png" alt="Mujtaba Fragrances Footer Mountain" class="replica-mobile-landscape-bg">
+        <div class="replica-mobile-legal-inner">
+          <span class="replica-copyright">© 2026 MUJTABA FRAGRANCES. ALL RIGHTS RESERVED.</span>
+          <div class="replica-legal-links">
+            <a href="privacy.html">PRIVACY</a>
+            <a href="terms.html">TERMS</a>
+            <a href="cookies.html">COOKIES</a>
+            <a href="legal.html">LEGAL</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================== SCRIPTS ====================== -->
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- Font Awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <!-- App scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+
+  <script>
+    // Populate bestsellers grid dynamically from product data
+    (function() {
+      const grid = document.getElementById('bestsellersGrid');
+      if (!grid || !window.PRODUCTS) return;
+      grid.innerHTML = '';
+      const bestsellers = window.PRODUCTS.filter(p => p.badge === 'Bestseller' || p.badge === 'New').slice(0, 4);
+      bestsellers.forEach(p => {
+        const temp = document.createElement('div');
+        temp.innerHTML = window.createProductCardHTML(p);
+        grid.appendChild(temp.firstElementChild);
+      });
+    })();
+
+    // Mobile nav toggle (overrides main.js's display-based logic for cleaner UX)
+    (function() {
+      const toggle = document.getElementById('navToggle');
+      const links = document.getElementById('navLinks');
+      if (!toggle || !links) return;
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        links.classList.toggle('open');
+      });
+      // Close on link click
+      links.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          toggle.classList.remove('active');
+          links.classList.remove('open');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

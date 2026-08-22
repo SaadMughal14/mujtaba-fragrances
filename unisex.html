@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mujtaba Fragrances — Unisex Collection</title>
+  <meta name="description" content="Explore Mujtaba Fragrances' unisex collection. Signature artisanal scents crafted for all essences.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body class="theme-unisex page-inner">
+
+  <!-- ====================== NAVIGATION ====================== -->
+  <nav class="nav scrolled" id="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">
+          <img src="assets/images/logo.svg" alt="MF Logo">
+        </span>
+        <span class="nav-logo-text">
+          <span class="brand">Mujtaba</span>
+          <span class="tagline">Unisex</span>
+        </span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="mens.html">Men</a></li>
+        <li><a href="womens.html">Women</a></li>
+        <li><a href="unisex.html" class="active">Unisex</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:14px;"></i>
+        </button>
+        <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="cart-badge">0</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="section-dots" id="sectionDots">
+    <!-- Populated by JS -->
+  </div>
+
+  <main class="collection-page page-card-wrap">
+    <div class="page-card diamond-pattern">
+      <div class="snap-container" id="snapContainer">
+        <!-- Sections populated by JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ====================== SCRIPTS ====================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/collection.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+
+  <script>
+    (function() {
+      const container = document.getElementById('snapContainer');
+      const dotsContainer = document.getElementById('sectionDots');
+      if (!container || !window.PRODUCTS) return;
+
+      const products = window.productsByCollection('unisex');
+      dotsContainer.innerHTML = products.map((p, i) =>
+        `<button class="section-dot ${i === 0 ? 'active' : ''}" data-section="${i}" aria-label="Fragrance ${i+1}"></button>`
+      ).join('');
+
+      products.forEach((p, idx) => {
+        const section = document.createElement('section');
+        section.className = 'snap-section';
+        section.dataset.fragrance = idx;
+        const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
+        const price100 = p.sizes && p.sizes[1] ? p.sizes[1].price : Math.round(p.price * 1.6);
+
+        section.innerHTML = `
+          <div class="container">
+            <div class="fragrance-grid">
+              <div class="fragrance-content reveal-stagger">
+                <span class="label-caps">Signature Unisex Fragrance · ${String(idx+1).padStart(2,'0')}</span>
+                <h1>${p.name.toUpperCase().replace(/ /g, '<br>')}</h1>
+                <div class="fragrance-price" id="priceDisplay-${p.id}">Rs ${price50.toLocaleString('en-PK')}</div>
+                <p class="fragrance-desc">${p.description}</p>
+                
+                <div class="card-size-selector" style="margin-bottom: 16px;">
+                  <span style="font-size:12px; color:var(--text-muted); align-self:center; margin-right:8px;">Size:</span>
+                  <button type="button" class="size-pill active" onclick="
+                    this.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('priceDisplay-${p.id}').textContent = 'Rs ${price50.toLocaleString('en-PK')}';
+                    document.getElementById('addBtn-${p.id}').dataset.sizeMl = '50';
+                  ">50ml</button>
+                  <button type="button" class="size-pill" onclick="
+                    this.parentElement.querySelectorAll('.size-pill').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById('priceDisplay-${p.id}').textContent = 'Rs ${price100.toLocaleString('en-PK')}';
+                    document.getElementById('addBtn-${p.id}').dataset.sizeMl = '100';
+                  ">100ml</button>
+                </div>
+
+                <div class="fragrance-actions" style="display:flex; gap:12px; align-items:center;">
+                  <button class="btn-glass" id="addBtn-${p.id}" data-add-to-cart="${p.id}" data-size-ml="50">
+                    <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+                    <span>Add to Cart</span>
+                  </button>
+                  <button type="button" class="btn-quick-view" style="width:44px; height:44px; border-radius:12px; font-size:16px;" title="Quick View" onclick="window.openQuickView('${p.id}');">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                  <a href="product.html?id=${p.id}" class="btn-target" style="padding:12px 20px;">View Details</a>
+                </div>
+              </div>
+              <div class="fragrance-image-wrap reveal skeleton-loader">
+                <img src="${p.image}" alt="${p.name} perfume bottle" class="fragrance-image" onload="this.parentElement.classList.remove('skeleton-loader');" onerror="this.parentElement.classList.remove('skeleton-loader');">
+                <div class="fragrance-image-specs">
+                  <div class="img-stat-box">
+                    <span class="img-stat-num">EDP</span>
+                    <span class="img-stat-lbl">Eau de Parfum</span>
+                  </div>
+                  <div class="img-stat-sep"></div>
+                  <div class="img-stat-box">
+                    <span class="img-stat-num">${p.longevity.split(' ')[0]}</span>
+                    <span class="img-stat-lbl">Longevity</span>
+                  </div>
+                  <div class="img-stat-sep"></div>
+                  <div class="img-stat-box">
+                    <span class="img-stat-num">${p.sillage || 'Strong'}</span>
+                    <span class="img-stat-lbl">Sillage</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-hint">${idx === products.length - 1 ? 'End of Collection' : 'Scroll'}</div>
+        `;
+        container.appendChild(section);
+      });
+
+      if (window.MF && window.MF.initCollection) {
+        window.MF.initCollection();
+      }
+
+      // Manually activate the first section's reveal animations
+      requestAnimationFrame(() => {
+        const firstSection = document.querySelector('.snap-section');
+        if (firstSection) {
+          firstSection.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+            el.classList.add('active');
+          });
+        }
+      });
+
+      // Mobile nav toggle
+      const toggle = document.getElementById('navToggle');
+      const links = document.getElementById('navLinks');
+      if (toggle && links) {
+        toggle.addEventListener('click', () => {
+          toggle.classList.toggle('active');
+          links.classList.toggle('open');
+        });
+        links.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            links.classList.remove('open');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
