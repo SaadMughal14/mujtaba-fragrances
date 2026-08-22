@@ -1,18 +1,18 @@
 /* ==========================================================================
-   MUJTABA FRAGRANCES — Shared interactions
-   - Sticky nav background on scroll
-   - IntersectionObserver-based reveal animations
-   - Mobile nav toggle
-   - Working cart (add to cart buttons everywhere)
-   - Toast notifications
-   - Filter tags
-   - Smooth scroll
+   MUJTABA FRAGRANCES — Shared Global Engine
+   - Corner Slide-Out Cart & Favorites & Orders Drawer
+   - Working Global Live Search Modal
+   - Save to Wishlist & Product Card Engine
+   - Sticky Island Navbar & Back to Top
+   - Simple, natural spoken English throughout
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  /* ---------- Toast utility ---------- */
+  window.MF = window.MF || {};
+
+  /* ---------- Toast Notification Utility ---------- */
   function showToast(message, link) {
     let toast = document.querySelector('.toast');
     if (!toast) {
@@ -24,7 +24,13 @@
     toast.querySelector('.toast-msg').textContent = message;
     if (link) {
       toast.style.cursor = 'pointer';
-      toast.onclick = () => { window.location.href = link; };
+      toast.onclick = () => {
+        if (link === 'cart.html' && typeof window.MF.openCartDrawer === 'function') {
+          window.MF.openCartDrawer('cart');
+        } else {
+          window.location.href = link;
+        }
+      };
     } else {
       toast.style.cursor = 'default';
       toast.onclick = null;
@@ -33,10 +39,9 @@
     clearTimeout(toast._t);
     toast._t = setTimeout(() => toast.classList.remove('show'), 3500);
   }
-  window.MF = window.MF || {};
   window.MF.toast = showToast;
 
-  /* ---------- Sticky nav & Back to Top ---------- */
+  /* ---------- Sticky Nav & Back to Top ---------- */
   const nav = document.getElementById('nav');
   let backToTopBtn = document.getElementById('backToTop');
 
@@ -55,24 +60,17 @@
 
   const handleScrollProgress = () => {
     const scrollY = snapContainer ? snapContainer.scrollTop : (window.scrollY || window.pageYOffset);
-    
     if (nav) {
       if (!isHomePage) {
-        // On all inner pages, keep island floating navbar fixed and constant
         nav.classList.add('scrolled');
       } else {
-        // On home page, start normal at top, morph to island pill when scrolled > 30px
         if (scrollY > 30) nav.classList.add('scrolled');
         else nav.classList.remove('scrolled');
       }
     }
-
     if (backToTopBtn) {
-      if (scrollY > 350) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
+      if (scrollY > 350) backToTopBtn.classList.add('visible');
+      else backToTopBtn.classList.remove('visible');
     }
   };
 
@@ -94,7 +92,7 @@
     });
   }
 
-  /* ---------- Reveal on scroll ---------- */
+  /* ---------- Reveal on Scroll ---------- */
   const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
   if ('IntersectionObserver' in window && revealEls.length) {
     const io = new IntersectionObserver((entries) => {
@@ -110,31 +108,18 @@
     revealEls.forEach((el) => el.classList.add('active'));
   }
 
-  /* ---------- Mobile nav ---------- */
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  /* ---------- Mobile Nav Toggle ---------- */
+  const navToggle = document.querySelector('.nav-toggle') || document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links') || document.getElementById('navLinks');
   if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = navLinks.style.display === 'flex';
-      if (isOpen) {
-        navLinks.style.display = '';
-      } else {
-        navLinks.style.display = 'flex';
-        navLinks.style.position = 'absolute';
-        navLinks.style.top = '80px';
-        navLinks.style.left = '0';
-        navLinks.style.right = '0';
-        navLinks.style.flexDirection = 'column';
-        navLinks.style.background = 'var(--overlay-dark)';
-        navLinks.style.backdropFilter = 'blur(20px)';
-        navLinks.style.padding = '24px 4rem';
-        navLinks.style.gap = '16px';
-        navLinks.style.borderBottom = '1px solid var(--border-gold)';
-      }
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+      navToggle.classList.toggle('active');
     });
   }
 
-  /* ---------- Filter tags ---------- */
+  /* ---------- Filter Tags Helper ---------- */
   const filterTags = document.querySelectorAll('.filter-tag');
   filterTags.forEach((tag) => {
     tag.addEventListener('click', () => {
@@ -143,30 +128,7 @@
     });
   });
 
-  /* ---------- Smooth scroll ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (href === '#' || href.length < 2) return;
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  /* ---------- Hero parallax ---------- */
-  const heroImg = document.querySelector('.hero-image');
-  if (heroImg && window.matchMedia('(min-width: 900px)').matches) {
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y < 800) heroImg.style.transform = `translateY(${y * 0.08}px)`;
-    }, { passive: true });
-  }
-
-  /* ---------- Working "Add to Cart" buttons ---------- */
-  // Any element with data-add-to-cart="<productId>" will add to cart
+  /* ---------- Global "Add to Cart" delegated click ---------- */
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-add-to-cart]');
     if (!btn) return;
@@ -178,8 +140,13 @@
     if (window.MF && window.MF.cart) {
       window.MF.cart.add(productId, qty, sizeMl);
       const product = window.findProduct ? window.findProduct(productId) : null;
-      const name = product ? product.name : 'Item';
-      showToast(`${name} (${sizeMl}ml) added to cart`, 'cart.html');
+      const name = product ? product.name : 'Perfume';
+      showToast(`${name} (${sizeMl}ml) added to cart!`, 'cart.html');
+      
+      // Open Corner Cart Drawer smoothly
+      if (typeof window.MF.openCartDrawer === 'function') {
+        window.MF.openCartDrawer('cart');
+      }
     }
   });
 
@@ -202,7 +169,9 @@
     }
   };
 
-  /* ---------- Global Product Card Generator ---------- */
+  /* ==========================================================================
+     GLOBAL PRODUCT CARD HTML GENERATOR (Includes Wishlist Heart Button)
+     ========================================================================== */
   window.createProductCardHTML = function (p) {
     const collection = p.collection || 'unisex';
     const genderClass = collection === 'men' ? 'gender-card-men' : (collection === 'women' ? 'gender-card-women' : 'gender-card-unisex');
@@ -210,11 +179,15 @@
     const genderLabel = collection === 'men' ? "Men's" : (collection === 'women' ? "Women's" : "Unisex");
     const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
     const price100 = p.sizes && p.sizes[1] ? p.sizes[1].price : Math.round(p.price * 1.6);
+    const isSaved = window.MF && window.MF.wishlist && window.MF.wishlist.has(p.id);
 
     return `
       <article class="glass-card product-card ${genderClass}" onclick="window.location.href='product.html?id=${p.id}'">
         <div class="product-card-image skeleton-loader">
           <img src="${p.image}" alt="${p.name}" loading="lazy" onload="this.classList.add('img-loaded'); this.parentElement.classList.remove('skeleton-loader');" onerror="this.parentElement.classList.remove('skeleton-loader');">
+          <button type="button" class="card-wishlist-btn ${isSaved ? 'is-active' : ''}" data-wishlist-id="${p.id}" aria-label="${isSaved ? 'Remove from favorites' : 'Save to favorites'}" title="${isSaved ? 'Remove from favorites' : 'Save to favorites'}" onclick="event.stopPropagation(); window.toggleWishlist('${p.id}', this);">
+            <i class="${isSaved ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+          </button>
         </div>
         <div class="product-card-body">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -242,16 +215,18 @@
     `;
   };
 
-  /* ---------- FRAGRANCE NOTES MODAL LOGIC ---------- */
+  /* ==========================================================================
+     FRAGRANCE NOTES MODAL
+     ========================================================================== */
   function ensureNotesModal() {
-    let backdrop = document.getElementById('notesModalBackdrop') || document.getElementById('quickViewBackdrop');
+    let backdrop = document.getElementById('notesModalBackdrop');
     if (!backdrop) {
       backdrop = document.createElement('div');
       backdrop.id = 'notesModalBackdrop';
       backdrop.className = 'notes-modal-backdrop quick-view-backdrop';
       backdrop.innerHTML = `
         <div class="notes-modal-dialog quick-view-modal">
-          <button class="quick-view-close" id="notesModalCloseBtn" aria-label="Close notes modal">&times;</button>
+          <button class="quick-view-close" id="notesModalCloseBtn" aria-label="Close notes">&times;</button>
           <div id="notesModalContent"></div>
         </div>
       `;
@@ -277,7 +252,7 @@
     if (!p) return;
 
     const backdrop = ensureNotesModal();
-    const content = backdrop.querySelector('#notesModalContent') || backdrop.querySelector('#quickViewContent');
+    const content = backdrop.querySelector('#notesModalContent');
 
     const collection = p.collection || 'unisex';
     const badgeClass = collection === 'men' ? 'badge-men' : (collection === 'women' ? 'badge-women' : 'badge-unisex');
@@ -285,15 +260,15 @@
     const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
 
     const topNote = p.notes && p.notes.top ? p.notes.top : 'Fresh opening notes';
-    const heartNote = p.notes && p.notes.heart ? p.notes.heart : 'Rich floral/woody core';
-    const baseNote = p.notes && p.notes.base ? p.notes.base : 'Deep amber & musk foundation';
+    const heartNote = p.notes && p.notes.heart ? p.notes.heart : 'Floral and wood notes';
+    const baseNote = p.notes && p.notes.base ? p.notes.base : 'Warm amber, vanilla and musk';
 
     content.innerHTML = `
       <div class="notes-modal-wrapper">
         <div class="notes-header-block">
           <div class="notes-badge-row">
             <span class="gender-badge ${badgeClass}">${genderLabel}</span>
-            <span class="notes-olfactory-tag"><i class="fa-solid fa-feather-pointed"></i> Fragrance Notes</span>
+            <span class="notes-olfactory-tag"><i class="fa-solid fa-feather-pointed"></i> Scent Notes</span>
           </div>
           <h2 class="notes-perfume-title">${p.name}</h2>
           <p class="notes-perfume-tagline">"${p.tagline}"</p>
@@ -318,7 +293,7 @@
               <span class="tier-icon">🌿</span>
               <div>
                 <h4>Heart Notes</h4>
-                <span class="tier-timing">2–4 hours (The Core Character)</span>
+                <span class="tier-timing">2–4 hours (Main Scent)</span>
               </div>
             </div>
             <p class="note-tier-ingredients">${heartNote}</p>
@@ -330,7 +305,7 @@
               <span class="tier-icon">🪵</span>
               <div>
                 <h4>Base Notes</h4>
-                <span class="tier-timing">8–18+ hours (Lingering Foundation)</span>
+                <span class="tier-timing">Lasts 12+ hours (Lasting Base)</span>
               </div>
             </div>
             <p class="note-tier-ingredients">${baseNote}</p>
@@ -356,17 +331,17 @@
 
         <div class="notes-action-row">
           <a href="product.html?id=${p.id}" class="btn-target" style="flex:1; text-align:center; padding:12px 18px; font-size:13px;">
-            Full Details & Story →
+            Full Details →
           </a>
           <button type="button" class="btn-glass" style="flex:1; justify-content:center; padding:12px 18px; font-size:13px;" onclick="
             if (window.MF && window.MF.cart) {
               window.MF.cart.add('${p.id}', 1, 50);
-              showToast('${p.name} (50ml) added to cart', 'cart.html');
+              showToast('${p.name} (50ml) added to cart!', 'cart.html');
               window.closeNotesModal();
             }
           ">
             <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-right:6px;"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
-            Add 50ml (Rs ${price50.toLocaleString('en-PK')})
+            Add 50ml (${window.formatPrice ? window.formatPrice(price50) : 'Rs ' + price50})
           </button>
         </div>
       </div>
@@ -376,22 +351,564 @@
   };
 
   window.closeNotesModal = function () {
-    const backdrop = document.getElementById('notesModalBackdrop') || document.getElementById('quickViewBackdrop');
+    const backdrop = document.getElementById('notesModalBackdrop');
     if (backdrop) backdrop.classList.remove('active');
   };
-
-  // Backward compatibility alias
   window.openQuickView = window.openNotesModal;
   window.closeQuickView = window.closeNotesModal;
 
-  /* ---------- Update cart badge on cart:changed ---------- */
+  /* ==========================================================================
+     WORKING GLOBAL LIVE SEARCH MODAL
+     ========================================================================== */
+  function ensureSearchModal() {
+    let backdrop = document.getElementById('searchModalBackdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'searchModalBackdrop';
+      backdrop.className = 'search-modal-backdrop';
+      backdrop.innerHTML = `
+        <div class="search-modal-dialog glass-panel">
+          <div class="search-modal-header">
+            <div class="search-bar-wrap">
+              <i class="fa-solid fa-magnifying-glass search-bar-icon"></i>
+              <input type="text" id="globalSearchInput" class="search-modal-input" placeholder="Search by name, note (Amber, Oud, Rose, Vanilla), or type..." autocomplete="off">
+              <button type="button" id="clearSearchBtn" class="search-clear-btn" aria-label="Clear search" style="display:none;">&times;</button>
+            </div>
+            <button type="button" class="search-modal-close" id="searchModalCloseBtn" aria-label="Close search">&times;</button>
+          </div>
+
+          <div class="search-quick-tags" id="searchQuickTags">
+            <span class="quick-tags-label">Popular:</span>
+            <button type="button" class="search-chip" data-search="Oud">Oud</button>
+            <button type="button" class="search-chip" data-search="Amber">Amber</button>
+            <button type="button" class="search-chip" data-search="Rose">Rose</button>
+            <button type="button" class="search-chip" data-search="Vanilla">Vanilla</button>
+            <button type="button" class="search-chip" data-search="Citrus">Citrus</button>
+            <button type="button" class="search-chip" data-search="Men">Men's</button>
+            <button type="button" class="search-chip" data-search="Women">Women's</button>
+            <button type="button" class="search-chip" data-search="Unisex">Unisex</button>
+          </div>
+
+          <div class="search-results-container" id="searchResultsContainer">
+            <!-- Populated on typing -->
+          </div>
+        </div>
+      `;
+      document.body.appendChild(backdrop);
+
+      const input = backdrop.querySelector('#globalSearchInput');
+      const clearBtn = backdrop.querySelector('#clearSearchBtn');
+      const closeBtn = backdrop.querySelector('#searchModalCloseBtn');
+      const resultsEl = backdrop.querySelector('#searchResultsContainer');
+
+      function doSearch(q) {
+        q = (q || '').trim().toLowerCase();
+        if (!q) {
+          clearBtn.style.display = 'none';
+          resultsEl.innerHTML = `
+            <div class="search-empty-state">
+              <i class="fa-solid fa-spray-can-sparkles" style="font-size:32px; color:var(--accent); margin-bottom:12px; opacity:0.7;"></i>
+              <h4>Explore Our Fragrances</h4>
+              <p>Type the name of any perfume, scent note, or collection above to search instantly.</p>
+            </div>
+          `;
+          return;
+        }
+
+        clearBtn.style.display = 'block';
+
+        if (!window.PRODUCTS || !window.PRODUCTS.length) {
+          resultsEl.innerHTML = '<div class="search-empty-state"><p>No products available.</p></div>';
+          return;
+        }
+
+        const matches = window.PRODUCTS.filter(p => {
+          const name = (p.name || '').toLowerCase();
+          const coll = (p.collection || '').toLowerCase();
+          const tagline = (p.tagline || '').toLowerCase();
+          const desc = (p.description || '').toLowerCase();
+          const notesStr = p.notes ? `${p.notes.top} ${p.notes.heart} ${p.notes.base}`.toLowerCase() : '';
+          return name.includes(q) || coll.includes(q) || tagline.includes(q) || desc.includes(q) || notesStr.includes(q);
+        });
+
+        if (matches.length === 0) {
+          resultsEl.innerHTML = `
+            <div class="search-empty-state">
+              <i class="fa-regular fa-face-meh" style="font-size:32px; color:var(--text-muted); margin-bottom:12px;"></i>
+              <h4>No perfumes found for "${q}"</h4>
+              <p>Try searching for words like "Rose", "Oud", "Amber", "Citrus", or "Men".</p>
+            </div>
+          `;
+          return;
+        }
+
+        resultsEl.innerHTML = `
+          <div class="search-results-header">
+            <span>Found ${matches.length} ${matches.length === 1 ? 'fragrance' : 'fragrances'}</span>
+            <a href="shop.html?q=${encodeURIComponent(q)}" class="search-shop-link">View all in shop →</a>
+          </div>
+          <div class="search-results-list">
+            ${matches.map(p => {
+              const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
+              const genderLabel = p.collection === 'men' ? "Men's" : (p.collection === 'women' ? "Women's" : "Unisex");
+              const isSaved = window.MF && window.MF.wishlist && window.MF.wishlist.has(p.id);
+              return `
+                <div class="search-result-item" onclick="window.location.href='product.html?id=${p.id}'">
+                  <img src="${p.image}" alt="${p.name}" class="search-item-img">
+                  <div class="search-item-info">
+                    <div class="search-item-top">
+                      <span class="gender-badge badge-${p.collection}">${genderLabel}</span>
+                      <span class="search-item-price">${window.formatPrice(price50)}</span>
+                    </div>
+                    <h4 class="search-item-name">${p.name}</h4>
+                    <p class="search-item-desc">${p.tagline}</p>
+                    <div class="search-item-notes"><strong>Notes:</strong> ${p.notes && p.notes.top ? p.notes.top.split(',').slice(0,2).join(', ') : 'Citrus & Amber'}</div>
+                  </div>
+                  <div class="search-item-actions" onclick="event.stopPropagation();">
+                    <button type="button" class="btn-card-add btn-search-add" data-add-to-cart="${p.id}" data-size-ml="50">
+                      <i class="fa-solid fa-bag-shopping"></i> Add
+                    </button>
+                    <button type="button" class="search-wish-btn ${isSaved ? 'is-active' : ''}" data-wishlist-id="${p.id}" onclick="window.toggleWishlist('${p.id}', this);" title="Save to favorites">
+                      <i class="${isSaved ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      input.addEventListener('input', (e) => doSearch(e.target.value));
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const q = input.value.trim();
+          if (q) {
+            window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+          }
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        input.focus();
+        doSearch('');
+      });
+
+      closeBtn.addEventListener('click', () => window.closeSearchModal());
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) window.closeSearchModal();
+      });
+
+      // Quick tags click
+      backdrop.querySelectorAll('.search-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const term = chip.dataset.search;
+          input.value = term;
+          input.focus();
+          doSearch(term);
+        });
+      });
+    }
+    return backdrop;
+  }
+
+  window.openSearchModal = function (initialQuery) {
+    const backdrop = ensureSearchModal();
+    const input = backdrop.querySelector('#globalSearchInput');
+    backdrop.classList.add('active');
+    if (initialQuery) {
+      input.value = initialQuery;
+      input.dispatchEvent(new Event('input'));
+    } else {
+      input.value = '';
+      input.dispatchEvent(new Event('input'));
+    }
+    setTimeout(() => input.focus(), 100);
+  };
+
+  window.closeSearchModal = function () {
+    const backdrop = document.getElementById('searchModalBackdrop');
+    if (backdrop) backdrop.classList.remove('active');
+  };
+
+  // Wire up all search buttons in navbar & headers
+  document.addEventListener('click', (e) => {
+    const searchTrigger = e.target.closest('.nav-icon[aria-label="Search"], button[aria-label="Search"], #navSearchBtn, .open-search-trigger');
+    if (searchTrigger) {
+      e.preventDefault();
+      // If on shop.html, focus the search bar if present, or open global search
+      const shopInput = document.getElementById('shopSearchInput');
+      if (shopInput) {
+        shopInput.focus();
+        shopInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        window.openSearchModal();
+      }
+    }
+  });
+
+  // Global keyboard shortcut '/' or 'Ctrl+K' to open search
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      e.preventDefault();
+      window.openSearchModal();
+    } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      window.openSearchModal();
+    } else if (e.key === 'Escape') {
+      window.closeSearchModal();
+      window.closeNotesModal();
+      if (typeof window.MF.closeCartDrawer === 'function') window.MF.closeCartDrawer();
+    }
+  });
+
+  /* ==========================================================================
+     CORNER SLIDE-OUT CART & FAVORITES & ORDERS DRAWER
+     ========================================================================== */
+  function ensureCartDrawer() {
+    let drawer = document.getElementById('cartDrawerOverlay');
+    if (!drawer) {
+      drawer = document.createElement('div');
+      drawer.id = 'cartDrawerOverlay';
+      drawer.className = 'cart-drawer-overlay';
+      drawer.innerHTML = `
+        <div class="cart-drawer-panel glass-panel" id="cartDrawerPanel">
+          <!-- Drawer Header -->
+          <div class="cart-drawer-header">
+            <div class="cart-drawer-title-row">
+              <h3 id="drawerMainTitle">Your Cart</h3>
+              <button type="button" class="cart-drawer-close" id="cartDrawerCloseBtn" aria-label="Close cart">&times;</button>
+            </div>
+
+            <!-- Tab Switcher (Cart / Favorites / Orders) -->
+            <div class="cart-drawer-tabs">
+              <button type="button" class="drawer-tab-btn active" data-tab="cart">
+                <i class="fa-solid fa-bag-shopping"></i> Cart (<span id="drawerCartCount">0</span>)
+              </button>
+              <button type="button" class="drawer-tab-btn" data-tab="wishlist">
+                <i class="fa-solid fa-heart"></i> Favorites (<span id="drawerWishlistCount">0</span>)
+              </button>
+              <button type="button" class="drawer-tab-btn" data-tab="orders">
+                <i class="fa-solid fa-clock-rotate-left"></i> Orders (<span id="drawerOrdersCount">0</span>)
+              </button>
+            </div>
+          </div>
+
+          <!-- Drawer Content Body -->
+          <div class="cart-drawer-body" id="cartDrawerBody">
+            <!-- Populated dynamically based on active tab -->
+          </div>
+
+          <!-- Drawer Footer (Sticky Checkout for Cart tab) -->
+          <div class="cart-drawer-footer" id="cartDrawerFooter">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      `;
+      document.body.appendChild(drawer);
+
+      // Event listeners for close
+      drawer.querySelector('#cartDrawerCloseBtn').addEventListener('click', () => window.MF.closeCartDrawer());
+      drawer.addEventListener('click', (e) => {
+        if (e.target === drawer) window.MF.closeCartDrawer();
+      });
+
+      // Tab switching
+      drawer.querySelectorAll('.drawer-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          drawer.querySelectorAll('.drawer-tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderDrawerTab(btn.dataset.tab);
+        });
+      });
+    }
+    return drawer;
+  }
+
+  function renderDrawerTab(tab = 'cart') {
+    const drawer = ensureCartDrawer();
+    const body = drawer.querySelector('#cartDrawerBody');
+    const footer = drawer.querySelector('#cartDrawerFooter');
+    const titleEl = drawer.querySelector('#drawerMainTitle');
+
+    // Update count badges
+    const cart = window.MF.cart;
+    const wishlist = window.MF.wishlist;
+    const orders = window.MF.orders;
+
+    const cartCount = cart ? cart.count() : 0;
+    const wishCount = wishlist ? wishlist.count() : 0;
+    const orderCount = orders ? orders.getAll().length : 0;
+
+    drawer.querySelector('#drawerCartCount').textContent = cartCount;
+    drawer.querySelector('#drawerWishlistCount').textContent = wishCount;
+    drawer.querySelector('#drawerOrdersCount').textContent = orderCount;
+
+    if (tab === 'cart') {
+      titleEl.textContent = 'Shopping Cart';
+      const items = cart ? cart.detailedItems() : [];
+
+      if (items.length === 0) {
+        body.innerHTML = `
+          <div class="drawer-empty-state">
+            <svg viewBox="0 0 24 24" style="width:64px;height:64px;stroke:var(--accent);fill:none;stroke-width:1;margin:0 auto 16px;opacity:0.6;"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+            <h4>Your cart is empty</h4>
+            <p>Explore our handcrafted perfumes and find your signature scent.</p>
+            <a href="shop.html" class="btn-primary-3d" onclick="window.MF.closeCartDrawer();" style="display:inline-flex;margin-top:16px;padding:10px 24px;">
+              <span>Shop All Perfumes</span>
+            </a>
+          </div>
+        `;
+        footer.style.display = 'none';
+        return;
+      }
+
+      const subtotal = cart.subtotal();
+      const shipping = cart.shipping();
+      const total = cart.total();
+      const freeShipThreshold = 10000;
+      const amountNeeded = Math.max(0, freeShipThreshold - subtotal);
+      const shipPercent = Math.min(100, Math.round((subtotal / freeShipThreshold) * 100));
+
+      const freeShippingNotice = shipping === 0 
+        ? `<div class="drawer-shipping-bar unlocked"><span class="ship-icon">✓</span> Free delivery across Pakistan!</div>`
+        : `<div class="drawer-shipping-bar"><div class="ship-progress"><div class="ship-fill" style="width:${shipPercent}%"></div></div><span>Add Rs ${amountNeeded.toLocaleString('en-PK')} more for <strong>FREE Delivery</strong></span></div>`;
+
+      body.innerHTML = `
+        ${freeShippingNotice}
+        <div class="drawer-items-list">
+          ${items.map(i => `
+            <div class="drawer-item">
+              <img src="${i.image}" alt="${i.name}" class="drawer-item-img">
+              <div class="drawer-item-info">
+                <div class="drawer-item-title-row">
+                  <h4 class="drawer-item-name">${i.name}</h4>
+                  <button type="button" class="drawer-item-remove" data-action="remove" data-id="${i.id}" data-size="${i.sizeMl}" title="Remove item">&times;</button>
+                </div>
+                <div class="drawer-item-meta">${i.sizeMl}ml · Rs ${i.unitPrice.toLocaleString('en-PK')} each</div>
+                
+                <div class="drawer-item-bottom">
+                  <!-- Touch-Friendly Quantity Controls -->
+                  <div class="drawer-qty-pill">
+                    <button type="button" class="drawer-qty-btn" data-action="dec" data-id="${i.id}" data-size="${i.sizeMl}" aria-label="Decrease quantity">−</button>
+                    <span class="drawer-qty-val">${i.qty}</span>
+                    <button type="button" class="drawer-qty-btn" data-action="inc" data-id="${i.id}" data-size="${i.sizeMl}" aria-label="Increase quantity">+</button>
+                  </div>
+                  <div class="drawer-item-total">Rs ${i.lineTotal.toLocaleString('en-PK')}</div>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      footer.style.display = 'block';
+      footer.innerHTML = `
+        <div class="drawer-summary-rows">
+          <div class="summary-line"><span>Subtotal</span><span>Rs ${subtotal.toLocaleString('en-PK')}</span></div>
+          <div class="summary-line"><span>Delivery</span><span>${shipping === 0 ? '<strong style="color:var(--accent);">FREE</strong>' : 'Rs ' + shipping.toLocaleString('en-PK')}</span></div>
+          <div class="summary-line total-line"><span>Total</span><span>Rs ${total.toLocaleString('en-PK')}</span></div>
+        </div>
+        <div class="drawer-cta-group">
+          <a href="checkout.html" class="btn-primary-3d drawer-checkout-btn">
+            <span>Proceed to Checkout</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+          </a>
+          <a href="cart.html" class="drawer-view-cart-link">View Full Cart Page →</a>
+        </div>
+      `;
+
+      // Attach quantity / remove handlers
+      body.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = btn.dataset.id;
+          const size = parseInt(btn.dataset.size, 10);
+          const act = btn.dataset.action;
+          if (act === 'inc') cart.increment(id, size);
+          else if (act === 'dec') cart.decrement(id, size);
+          else if (act === 'remove') cart.remove(id, size);
+          renderDrawerTab('cart');
+        });
+      });
+
+    } else if (tab === 'wishlist') {
+      titleEl.textContent = 'Your Saved Favorites';
+      footer.style.display = 'none';
+
+      const savedProducts = wishlist ? wishlist.getProducts() : [];
+
+      if (savedProducts.length === 0) {
+        body.innerHTML = `
+          <div class="drawer-empty-state">
+            <i class="fa-regular fa-heart" style="font-size:48px; color:var(--accent); margin-bottom:16px; opacity:0.6;"></i>
+            <h4>No favorites saved yet</h4>
+            <p>Tap the heart icon on any perfume to save it to your browser favorites.</p>
+            <a href="shop.html" class="btn-primary-3d" onclick="window.MF.closeCartDrawer();" style="display:inline-flex;margin-top:16px;padding:10px 24px;">
+              <span>Explore Collection</span>
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      body.innerHTML = `
+        <div class="drawer-items-list">
+          ${savedProducts.map(p => {
+            const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
+            const genderLabel = p.collection === 'men' ? "Men's" : (p.collection === 'women' ? "Women's" : "Unisex");
+            return `
+              <div class="drawer-item wishlist-item" onclick="window.location.href='product.html?id=${p.id}'">
+                <img src="${p.image}" alt="${p.name}" class="drawer-item-img">
+                <div class="drawer-item-info">
+                  <div class="drawer-item-title-row">
+                    <h4 class="drawer-item-name">${p.name}</h4>
+                    <button type="button" class="drawer-item-remove" data-remove-wish="${p.id}" title="Remove from favorites">&times;</button>
+                  </div>
+                  <div class="drawer-item-meta">${genderLabel} · ${window.formatPrice(price50)}</div>
+                  <p style="font-size:12px; color:var(--text-muted); margin:4px 0 8px; line-height:1.3;">${p.tagline}</p>
+                  
+                  <div class="drawer-item-bottom" onclick="event.stopPropagation();">
+                    <button type="button" class="btn-card-add" data-add-to-cart="${p.id}" data-size-ml="50" style="padding:6px 14px; font-size:11px;">
+                      <i class="fa-solid fa-bag-shopping"></i> Add 50ml
+                    </button>
+                    <a href="product.html?id=${p.id}" class="drawer-detail-link">Details →</a>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      // Remove from wishlist handlers
+      body.querySelectorAll('[data-remove-wish]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.removeWish;
+          wishlist.remove(id);
+          renderDrawerTab('wishlist');
+        });
+      });
+
+    } else if (tab === 'orders') {
+      titleEl.textContent = 'Your Recent Orders';
+      footer.style.display = 'none';
+
+      const allOrders = orders ? orders.getAll() : [];
+
+      if (allOrders.length === 0) {
+        body.innerHTML = `
+          <div class="drawer-empty-state">
+            <i class="fa-solid fa-clock-rotate-left" style="font-size:48px; color:var(--accent); margin-bottom:16px; opacity:0.6;"></i>
+            <h4>No recent orders</h4>
+            <p>When you complete a purchase, your order history is safely saved here on your browser.</p>
+            <a href="shop.html" class="btn-primary-3d" onclick="window.MF.closeCartDrawer();" style="display:inline-flex;margin-top:16px;padding:10px 24px;">
+              <span>Start Shopping</span>
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      body.innerHTML = `
+        <div class="drawer-orders-list">
+          ${allOrders.map(o => {
+            const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+            const itemsCount = o.items ? o.items.reduce((s, i) => s + (i.qty || 1), 0) : 0;
+            return `
+              <div class="drawer-order-card">
+                <div class="drawer-order-top">
+                  <span class="order-badge-confirmed">✓ ${o.status || 'Confirmed'}</span>
+                  <span class="order-date">${dateStr}</span>
+                </div>
+                <div class="order-num-id">Order ID: <strong>${o.orderId}</strong></div>
+                <div class="order-items-preview">
+                  ${(o.items || []).map(i => `
+                    <div class="order-mini-item">
+                      <span>${i.name} (${i.sizeMl || 50}ml) × ${i.qty || 1}</span>
+                      <span>Rs ${(i.lineTotal || (i.unitPrice * i.qty)).toLocaleString('en-PK')}</span>
+                    </div>
+                  `).join('')}
+                </div>
+                <div class="order-total-row">
+                  <span>Total Amount</span>
+                  <strong>Rs ${(o.total || 0).toLocaleString('en-PK')}</strong>
+                </div>
+                <div class="order-actions-row">
+                  <a href="order-confirmation.html?id=${o.orderId}" class="order-view-btn">View Order Receipt →</a>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+  }
+
+  window.MF.openCartDrawer = function (tab = 'cart') {
+    const drawer = ensureCartDrawer();
+    drawer.classList.add('active');
+    // Set active tab button
+    drawer.querySelectorAll('.drawer-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+    renderDrawerTab(tab);
+  };
+
+  window.MF.closeCartDrawer = function () {
+    const drawer = document.getElementById('cartDrawerOverlay');
+    if (drawer) drawer.classList.remove('active');
+  };
+
+  window.MF.openWishlistDrawer = function () {
+    window.MF.openCartDrawer('wishlist');
+  };
+
+  window.MF.openOrdersDrawer = function () {
+    window.MF.openCartDrawer('orders');
+  };
+
+  // Intercept cart icon clicks across all pages so it opens the smooth corner drawer!
+  document.addEventListener('click', (e) => {
+    const cartTrigger = e.target.closest('.nav-icon[aria-label="Cart"], .open-cart-drawer');
+    if (cartTrigger) {
+      // If user is already on cart.html or checkout.html, they might want either full page or drawer
+      // But opening the drawer instantly gives the corner slide-over experience requested!
+      if (!window.location.pathname.endsWith('cart.html') && !window.location.pathname.endsWith('checkout.html')) {
+        e.preventDefault();
+        window.MF.openCartDrawer('cart');
+      }
+    }
+  });
+
+  // Re-render drawer when cart or wishlist changes
   window.addEventListener('cart:changed', () => {
     if (window.MF && window.MF.cart) {
       window.MF.cart.updateBadge();
     }
+    const drawer = document.getElementById('cartDrawerOverlay');
+    if (drawer && drawer.classList.contains('active')) {
+      const activeTabBtn = drawer.querySelector('.drawer-tab-btn.active');
+      const activeTab = activeTabBtn ? activeTabBtn.dataset.tab : 'cart';
+      renderDrawerTab(activeTab);
+    }
   });
 
-  /* ---------- Feature Story Switcher ---------- */
+  window.addEventListener('wishlist:changed', () => {
+    if (window.MF && window.MF.wishlist) {
+      window.MF.wishlist.updateBadges();
+    }
+    const drawer = document.getElementById('cartDrawerOverlay');
+    if (drawer && drawer.classList.contains('active')) {
+      const activeTabBtn = drawer.querySelector('.drawer-tab-btn.active');
+      const activeTab = activeTabBtn ? activeTabBtn.dataset.tab : 'cart';
+      renderDrawerTab(activeTab);
+    }
+  });
+
+  /* ---------- Feature Story Switcher (Index Page) ---------- */
   const featureTitle = document.getElementById('featureTitle');
   const featureDesc = document.getElementById('featureDesc');
   const featureNum = document.getElementById('featureNum');
@@ -403,20 +920,20 @@
       {
         num: '(01)',
         tag: 'HERITAGE',
-        title: 'Ethically Crafted,<br><span class="italic-gold">Exquisitely Sourced</span>',
-        desc: 'We partner with world-renowned perfumers and source the finest, sustainable ingredients. Every fragrance is a testament to our commitment to craft, community, and the natural world that inspires us.'
+        title: 'Handcrafted With<br><span class="italic-gold">Pure Ingredients</span>',
+        desc: 'We work with top perfume makers to bring you long-lasting luxury fragrances. Every bottle is made with pure fragrance oils and ethically sourced botanicals.'
       },
       {
         num: '(02)',
         tag: 'PURITY',
-        title: 'Botanical Purity,<br><span class="italic-gold">Sustainably Harvested</span>',
-        desc: 'From rare Taif roses to wild-harvested Cambodian agarwood, our ingredients are ethically gathered at peak bloom, preserving nature’s integrity and supporting indigenous farming communities.'
+        title: 'Natural & Long Lasting<br><span class="italic-gold">All Day Long</span>',
+        desc: 'From rich Cambodian oud to fresh morning roses, our ingredients are harvested at peak freshness for fragrances that last 12 to 18 hours on your clothes.'
       },
       {
         num: '(03)',
         tag: 'ARTISAN',
-        title: 'Artisanal Mastery,<br><span class="italic-gold">Cruelty-Free Legacy</span>',
-        desc: 'Hand-blended in micro-batches with zero synthetic fillers or animal testing. Our master perfumers balance ancient heritage techniques with modern olfactory innovation.'
+        title: 'Clean & Safe<br><span class="italic-gold">Everyday Luxury</span>',
+        desc: 'Made in small fresh batches with no harmful chemicals and no animal testing. Designed for daily wear and memorable occasions.'
       }
     ];
 
@@ -429,7 +946,6 @@
       textContainer.style.transform = 'translateY(10px)';
       textContainer.style.transition = 'all 0.3s ease';
 
-      // Trigger Gold Seal pulse animation
       const goldSeal = document.getElementById('feature3dContainer');
       if (goldSeal) {
         goldSeal.classList.remove('pulse-spin');
@@ -460,19 +976,6 @@
     });
   }
 
-  /* ---------- Play button ---------- */
-  const playBtn = document.querySelector('.play-btn');
-  if (playBtn) {
-    playBtn.addEventListener('click', () => {
-      playBtn.animate(
-        [{ transform: 'translate(-50%, -50%) scale(1)' },
-         { transform: 'translate(-50%, -50%) scale(0.85)' },
-         { transform: 'translate(-50%, -50%) scale(1)' }],
-        { duration: 300 }
-      );
-    });
-  }
-
   /* ---------- Customer Testimonials Slider ---------- */
   const testiTrack = document.getElementById('testiTrack');
   const testiPrevBtn = document.getElementById('testiPrevBtn');
@@ -486,7 +989,6 @@
     let currentSlide = 0;
     let autoPlayTimer = null;
 
-    // Create dots
     testiDotsContainer.innerHTML = Array.from({ length: totalSlides }, (_, i) =>
       `<button class="slider-dot ${i === 0 ? 'active' : ''}" data-slide="${i}" aria-label="Go to slide ${i + 1}"></button>`
     ).join('');
@@ -545,7 +1047,7 @@
     startAutoPlay();
   }
 
-  /* ---------- Auto-collapse expanded descriptions on scroll / touch ---------- */
+  /* Auto-collapse expanded descriptions on scroll */
   function collapseExpandedDescriptions() {
     const expanded = document.querySelectorAll('.fragrance-desc.is-expanded');
     if (expanded.length > 0) {
@@ -558,4 +1060,3 @@
   window.addEventListener('wheel', collapseExpandedDescriptions, { passive: true, capture: true });
 
 })();
-

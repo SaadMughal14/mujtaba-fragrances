@@ -145,6 +145,9 @@
                     <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
                     <span>Add to Cart</span>
                   </button>
+                  <button type="button" class="btn-notes btn-wishlist-hero ${window.MF && window.MF.wishlist && window.MF.wishlist.has(p.id) ? 'is-active' : ''}" data-wishlist-id="${p.id}" title="Save to favorites" onclick="window.toggleWishlist('${p.id}', this);">
+                    <i class="${window.MF && window.MF.wishlist && window.MF.wishlist.has(p.id) ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                  </button>
                   <button type="button" class="btn-notes" title="Fragrance Notes" onclick="window.openNotesModal('${p.id}');">
                     <i class="fa-solid fa-feather-pointed"></i>
                     <span>Notes</span>

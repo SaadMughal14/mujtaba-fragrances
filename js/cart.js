@@ -1,7 +1,7 @@
 /* ==========================================================================
-   MUJTABA FRAGRANCES — Cart System
-   localStorage-based shopping cart with full CRUD.
-   Exposes: MF.cart (the cart instance)
+   MUJTABA FRAGRANCES — Cart & Orders System
+   localStorage-based shopping cart and recent order storage with full CRUD.
+   Exposes: MF.cart, MF.orders
    ========================================================================== */
 
 window.MF = window.MF || {};
@@ -15,7 +15,6 @@ window.MF = window.MF || {};
   /* ---------- Cart API ---------- */
   const cart = {
     /* items: [{ id, qty, sizeMl }, ...] */
-
     items: [],
 
     /* Load from localStorage */
@@ -23,6 +22,7 @@ window.MF = window.MF || {};
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         this.items = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(this.items)) this.items = [];
       } catch (e) {
         console.warn('Cart load failed:', e);
         this.items = [];
@@ -44,7 +44,7 @@ window.MF = window.MF || {};
 
     /* Add item (or merge if same id + size) */
     add(productId, qty = 1, sizeMl = null) {
-      const product = window.findProduct(productId);
+      const product = window.findProduct ? window.findProduct(productId) : null;
       if (!product) {
         console.warn('Unknown product:', productId);
         return;
@@ -111,10 +111,10 @@ window.MF = window.MF || {};
       return this.items.reduce((sum, i) => sum + i.qty, 0);
     },
 
-    /* Subtotal in dollars */
+    /* Subtotal in PKR */
     subtotal() {
       return this.items.reduce((sum, i) => {
-        const p = window.findProduct(i.id);
+        const p = window.findProduct ? window.findProduct(i.id) : null;
         if (!p) return sum;
         const size = p.sizes.find(s => s.ml === i.sizeMl);
         const unitPrice = size ? size.price : p.price;
@@ -129,9 +129,9 @@ window.MF = window.MF || {};
       return sub >= 10000 ? 0 : 500;
     },
 
-    /* Sales tax (5% — demo, applies to subtotal) */
+    /* Sales tax (5%) */
     tax() {
-      return this.subtotal() * 0.05;
+      return Math.round(this.subtotal() * 0.05);
     },
 
     /* Grand total */
@@ -139,10 +139,10 @@ window.MF = window.MF || {};
       return this.subtotal() + this.shipping() + this.tax();
     },
 
-    /* Format detailed items for checkout / Discord */
+    /* Format detailed items for checkout & drawer */
     detailedItems() {
       return this.items.map(i => {
-        const p = window.findProduct(i.id);
+        const p = window.findProduct ? window.findProduct(i.id) : null;
         if (!p) return null;
         const size = p.sizes.find(s => s.ml === i.sizeMl) || p.sizes[0];
         return {
@@ -164,33 +164,59 @@ window.MF = window.MF || {};
       const count = this.count();
       badges.forEach(b => {
         b.textContent = count;
-        b.style.display = count > 0 ? 'flex' : 'flex';
+        b.style.display = 'inline-flex';
       });
     }
   };
 
-  /* ---------- Orders API (for confirmation page) ---------- */
+  /* ---------- Orders API (Stored in Local Browser Memory) ---------- */
   const orders = {
     save(order) {
       try {
+        if (!order.createdAt) order.createdAt = new Date().toISOString();
+        if (!order.status) order.status = 'Confirmed';
         const all = JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
-        all.push(order);
+        // Prepend new order at the front
+        const exists = all.findIndex(o => o.orderId === order.orderId);
+        if (exists > -1) {
+          all[exists] = order;
+        } else {
+          all.unshift(order);
+        }
         localStorage.setItem(ORDERS_KEY, JSON.stringify(all));
+        window.dispatchEvent(new CustomEvent('orders:changed', { detail: all }));
       } catch (e) {
         console.warn('Order save failed:', e);
       }
     },
-    get(id) {
+
+    getAll() {
       try {
         const all = JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
+        return Array.isArray(all) ? all : [];
+      } catch (e) {
+        return [];
+      }
+    },
+
+    get(id) {
+      try {
+        const all = this.getAll();
         return all.find(o => o.orderId === id || o.id === id);
       } catch (e) {
         return null;
       }
+    },
+
+    clear() {
+      try {
+        localStorage.removeItem(ORDERS_KEY);
+        window.dispatchEvent(new CustomEvent('orders:changed', { detail: [] }));
+      } catch (e) {}
     }
   };
 
-  /* ---------- Generate order ID ---------- */
+  /* ---------- Generate clean order ID ---------- */
   function genOrderId() {
     const ts = Date.now().toString(36).toUpperCase();
     const rand = Math.random().toString(36).substr(2, 4).toUpperCase();

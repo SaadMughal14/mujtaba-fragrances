@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shopping Cart — Mujtaba Fragrances</title>
+  <meta name="description" content="View items in your cart, adjust quantities, and proceed to secure checkout with Mujtaba Fragrances.">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
 </head>
-<body>
+<body class="theme-dark page-inner page-cart">
 
   <nav class="nav scrolled" id="nav">
     <div class="container">
@@ -31,6 +36,9 @@
         <li><a href="cart.html" class="active">Cart</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="nav-icon" aria-label="Search" onclick="if(window.openSearchModal) window.openSearchModal();">
+          <i class="fa-solid fa-magnifying-glass" style="font-size:14px;"></i>
+        </button>
         <a href="cart.html" class="nav-icon" aria-label="Cart" style="text-decoration:none;">
           <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
           <span class="cart-badge">0</span>
@@ -42,7 +50,7 @@
     </div>
   </nav>
 
-  <main class="cart-page">
+  <main class="cart-page" style="padding-bottom: 120px;">
     <div class="container">
       <h1 class="page-title">Shopping Cart</h1>
       <p class="page-subtitle" id="cartItemCount">0 items in your cart</p>
@@ -50,22 +58,46 @@
       <div id="cartContent">
         <!-- Populated by JS -->
       </div>
+
+      <!-- Recent Orders Section -->
+      <div id="recentOrdersSection" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2 style="font-family: var(--font-heading); font-size: 24px; font-weight: 400; color: #fff;">
+            <i class="fa-solid fa-clock-rotate-left" style="color: var(--accent); margin-right: 8px;"></i> Your Recent Orders
+          </h2>
+          <span style="font-size: 12px; color: var(--text-muted);">Saved in your browser</span>
+        </div>
+        <div id="recentOrdersList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;">
+          <!-- Populated from localStorage -->
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- ====================== REPLICA LUXURY FOOTER (DESKTOP WEB VIEW & DEDICATED MOBILE VIEW) ====================== -->
+  <!-- Sticky Mobile Checkout Bar -->
+  <div class="mobile-sticky-checkout-bar" id="mobileStickyBar" style="display:none;">
+    <div class="mobile-sticky-inner">
+      <div class="mobile-sticky-price">
+        <span class="sticky-label">Total Amount:</span>
+        <span class="sticky-val" id="stickyTotalVal">Rs 0</span>
+      </div>
+      <a href="checkout.html" class="btn-primary-3d mobile-sticky-btn">
+        <span>Proceed to Checkout</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====================== FOOTER ====================== -->
   <footer class="replica-footer" id="footer">
-    <!-- DESKTOP WEB VIEW (PERCENTAGE OVERLAY ON DEDICATED FULL LANDSCAPE ARTWORK) -->
     <div class="replica-footer-desktop">
       <div class="replica-footer-relative-wrap">
         <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_big_footer.png" alt="Mujtaba Fragrances Footer Background" class="replica-footer-bg-img" />
         
-        <!-- Top Left: Newsletter Section -->
         <div class="replica-newsletter-overlay">
           <span class="replica-eyebrow">FEEL FRAGRANCE</span>
           <h2>Stay connected to elegance<br>in every spray</h2>
-          <p>Subscribe for early access to new launches, limited editions, and curated fragrance stories delivered to your inbox.</p>
-          
+          <p>Subscribe for early access to new perfume launches and special offers.</p>
           <form class="replica-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to Mujtaba Fragrances.');">
             <input type="email" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit" aria-label="Subscribe">
@@ -74,75 +106,67 @@
           </form>
         </div>
 
-        <!-- Center: Big Brand Header -->
         <div class="replica-brand-overlay">
           <h2 class="replica-brand-title">MUJTABA FRAGRANCES</h2>
         </div>
 
-        <!-- Middle-Bottom: 4-Column Navigation Links -->
         <div class="replica-nav-overlay">
           <div class="replica-nav-col">
             <h4>SHOP</h4>
             <ul>
-              <li><a href="mens.html">All Fragrances</a></li>
-              <li><a href="mens.html">Discovery Set</a></li>
-              <li><a href="index.html#collections">Home Scenting</a></li>
-              <li><a href="index.html#collections">Gift Sets</a></li>
+              <li><a href="shop.html">All Perfumes</a></li>
+              <li><a href="mens.html">Men's Collection</a></li>
+              <li><a href="womens.html">Women's Collection</a></li>
+              <li><a href="unisex.html">Unisex Collection</a></li>
             </ul>
           </div>
           <div class="replica-nav-col">
-            <h4>DISCOVER</h4>
+            <h4>ABOUT</h4>
             <ul>
-              <li><a href="index.html#about">Our Story</a></li>
-              <li><a href="index.html#collections">The Ingredients</a></li>
-              <li><a href="index.html#collections">The Process</a></li>
-              <li><a href="mens.html">Fragrance Finder</a></li>
+              <li><a href="index.html#heritage">Our Story</a></li>
+              <li><a href="index.html#collections">Pure Ingredients</a></li>
+              <li><a href="shop.html">Perfume Guide</a></li>
             </ul>
           </div>
           <div class="replica-nav-col">
             <h4>CONTACT</h4>
             <ul>
               <li><a href="#">Karachi, Pakistan</a></li>
-              <li><a href="mailto:atelier@mujtaba-fragrances.com">atelier@mujtaba-fragrances.com</a></li>
+              <li><a href="mailto:info@mujtaba-fragrances.com">info@mujtaba-fragrances.com</a></li>
               <li><a href="tel:+923000000000">+92 300 0000000</a></li>
-              <li><a href="services.html">Concierge Services</a></li>
             </ul>
           </div>
           <div class="replica-nav-col">
             <h4>FOLLOW US</h4>
             <ul>
               <li><a href="#">Instagram</a></li>
-              <li><a href="#">Pinterest</a></li>
+              <li><a href="#">Facebook</a></li>
               <li><a href="#">TikTok</a></li>
             </ul>
           </div>
         </div>
 
-        <!-- Bottom: Legal / Copyright Bar -->
         <div class="replica-legal-overlay">
           <div class="replica-legal-inner">
             <span class="replica-copyright">© 2026 MUJTABA FRAGRANCES. ALL RIGHTS RESERVED.</span>
             <div class="replica-legal-links">
-              <a href="privacy.html">PRIVACY</a>
-              <a href="terms.html">TERMS</a>
-              <a href="cookies.html">COOKIES</a>
-              <a href="legal.html">LEGAL</a>
+              <a href="#">PRIVACY</a>
+              <a href="#">TERMS</a>
+              <a href="#">SHIPPING & RETURNS</a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- MOBILE VIEW (DEDICATED LUXURY MOBILE LAYOUT & ARTWORK) -->
+    <!-- MOBILE VIEW -->
     <div class="replica-footer-mobile">
-      <!-- Mobile Hero Newsletter Banner -->
       <div class="replica-mobile-hero-card">
-        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_Body_hero.png" alt="Mujtaba Fragrances Elegance" class="replica-mobile-hero-img">
+        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_Body_hero.png" alt="Mujtaba Fragrances" class="replica-mobile-hero-img">
         <div class="replica-mobile-hero-content">
           <span class="replica-eyebrow">FEEL FRAGRANCE</span>
           <h2>Stay connected to elegance<br>in every spray</h2>
-          <p>Subscribe for early access to new launches, limited editions, and fragrance stories.</p>
+          <p>Get updates on new perfumes and special offers.</p>
           <form class="replica-newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing to Mujtaba Fragrances.');">
             <input type="email" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit" aria-label="Subscribe">
@@ -152,60 +176,37 @@
         </div>
       </div>
 
-      <!-- Mobile Brand Title Section -->
       <div class="replica-mobile-brand">
         <h2 class="replica-brand-title">MUJTABA FRAGRANCES</h2>
       </div>
 
-      <!-- Mobile 2x2 Nav Links -->
       <div class="replica-mobile-nav">
         <div class="replica-nav-col">
           <h4>SHOP</h4>
           <ul>
-            <li><a href="mens.html">All Fragrances</a></li>
-            <li><a href="mens.html">Discovery Set</a></li>
-            <li><a href="index.html#collections">Home Scenting</a></li>
-            <li><a href="index.html#collections">Gift Sets</a></li>
+            <li><a href="shop.html">All Perfumes</a></li>
+            <li><a href="mens.html">Men's Collection</a></li>
+            <li><a href="womens.html">Women's Collection</a></li>
+            <li><a href="unisex.html">Unisex Collection</a></li>
           </ul>
         </div>
         <div class="replica-nav-col">
-          <h4>DISCOVER</h4>
+          <h4>HELP & INFO</h4>
           <ul>
-            <li><a href="index.html#about">Our Story</a></li>
-            <li><a href="index.html#collections">The Ingredients</a></li>
-            <li><a href="index.html#collections">The Process</a></li>
-            <li><a href="mens.html">Fragrance Finder</a></li>
-          </ul>
-        </div>
-        <div class="replica-nav-col">
-          <h4>CONTACT</h4>
-          <ul>
-            <li><a href="#">Karachi, Pakistan</a></li>
-            <li><a href="mailto:atelier@mujtaba-fragrances.com">atelier@mujtaba-fragrances.com</a></li>
-            <li><a href="tel:+923000000000">+92 300 0000000</a></li>
-            <li><a href="services.html">Concierge Services</a></li>
-          </ul>
-        </div>
-        <div class="replica-nav-col">
-          <h4>FOLLOW US</h4>
-          <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Pinterest</a></li>
-            <li><a href="#">TikTok</a></li>
+            <li><a href="index.html#heritage">About Us</a></li>
+            <li><a href="mailto:info@mujtaba-fragrances.com">Email Support</a></li>
+            <li><a href="#">Cash on Delivery</a></li>
           </ul>
         </div>
       </div>
 
-      <!-- Mobile Bottom Dark Landscape Bar -->
       <div class="replica-mobile-landscape">
-        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_big_footer.png" alt="Mujtaba Fragrances Footer Mountain" class="replica-mobile-landscape-bg">
+        <img src="https://raw.githubusercontent.com/SaadMughal14/batch-assets/main/Mf_big_footer.png" alt="Mujtaba Fragrances Footer" class="replica-mobile-landscape-bg">
         <div class="replica-mobile-legal-inner">
           <span class="replica-copyright">© 2026 MUJTABA FRAGRANCES. ALL RIGHTS RESERVED.</span>
           <div class="replica-legal-links">
-            <a href="privacy.html">PRIVACY</a>
-            <a href="terms.html">TERMS</a>
-            <a href="cookies.html">COOKIES</a>
-            <a href="legal.html">LEGAL</a>
+            <a href="#">PRIVACY</a>
+            <a href="#">TERMS</a>
           </div>
         </div>
       </div>
@@ -220,6 +221,41 @@
       const cart = window.MF.cart;
       const content = document.getElementById('cartContent');
       const countLabel = document.getElementById('cartItemCount');
+      const stickyBar = document.getElementById('mobileStickyBar');
+      const stickyVal = document.getElementById('stickyTotalVal');
+      const recentOrdersSection = document.getElementById('recentOrdersSection');
+      const recentOrdersList = document.getElementById('recentOrdersList');
+
+      function renderRecentOrders() {
+        if (!window.MF || !window.MF.orders) return;
+        const orders = window.MF.orders.getAll();
+        if (orders.length === 0) {
+          recentOrdersSection.style.display = 'none';
+          return;
+        }
+
+        recentOrdersSection.style.display = 'block';
+        recentOrdersList.innerHTML = orders.map(o => {
+          const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+          const itemsCount = o.items ? o.items.reduce((s, i) => s + (i.qty || 1), 0) : 0;
+          return `
+            <div class="glass-card" style="padding: 20px; border-radius: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="order-badge-confirmed" style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;">✓ Confirmed</span>
+                <span style="font-size: 12px; color: var(--text-muted);">${dateStr}</span>
+              </div>
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 8px;">Order: ${o.orderId}</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                ${(o.items || []).map(i => `${i.name} (${i.sizeMl || 50}ml) × ${i.qty || 1}`).join(', ')}
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 14px; font-weight: 700; color: var(--accent);">Rs ${(o.total || 0).toLocaleString('en-PK')}</span>
+                <a href="order-confirmation.html?id=${o.orderId}" style="color: #93c5fd; font-size: 12px; font-weight: 500; text-decoration: none;">View Receipt →</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
 
       function render() {
         const items = cart.detailedItems();
@@ -230,10 +266,12 @@
             <div class="empty-cart">
               <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
               <h3>Your cart is empty</h3>
-              <p>Discover our signature fragrances and find your perfect scent.</p>
-              <a href="index.html#collections" class="btn btn-primary"><span>Start Shopping</span></a>
+              <p>Explore our handcrafted perfumes and choose your favorite scent.</p>
+              <a href="shop.html" class="btn btn-primary"><span>Start Shopping</span></a>
             </div>
           `;
+          stickyBar.style.display = 'none';
+          renderRecentOrders();
           return;
         }
 
@@ -246,10 +284,11 @@
               <div class="unit-price">Rs ${i.unitPrice.toLocaleString('en-PK')} each</div>
             </div>
             <div class="cart-item-actions">
+              <!-- Large Touch-Friendly Quantity Controls -->
               <div class="cart-item-qty">
-                <button data-action="dec" data-id="${i.id}" data-size="${i.sizeMl}">−</button>
+                <button data-action="dec" data-id="${i.id}" data-size="${i.sizeMl}" aria-label="Decrease quantity">−</button>
                 <span class="val">${i.qty}</span>
-                <button data-action="inc" data-id="${i.id}" data-size="${i.sizeMl}">+</button>
+                <button data-action="inc" data-id="${i.id}" data-size="${i.sizeMl}" aria-label="Increase quantity">+</button>
               </div>
               <div class="cart-item-total">Rs ${i.lineTotal.toLocaleString('en-PK')}</div>
               <button class="cart-item-remove" data-action="remove" data-id="${i.id}" data-size="${i.sizeMl}">Remove</button>
@@ -262,21 +301,24 @@
         const tax = cart.tax();
         const total = cart.total();
 
+        stickyVal.textContent = 'Rs ' + total.toLocaleString('en-PK');
+        stickyBar.style.display = 'block';
+
         content.innerHTML = `
           <div class="cart-layout">
             <div class="cart-items">${itemsHtml}</div>
             <aside class="cart-summary">
               <h3>Order Summary</h3>
               <div class="summary-row"><span class="key">Subtotal</span><span class="val">Rs ${subtotal.toLocaleString('en-PK')}</span></div>
-              <div class="summary-row"><span class="key">Shipping</span><span class="val">${shipping === 0 ? 'FREE' : 'Rs ' + shipping.toLocaleString('en-PK')}</span></div>
-              <div class="summary-row"><span class="key">Tax (5%)</span><span class="val">Rs ${tax.toLocaleString('en-PK')}</span></div>
+              <div class="summary-row"><span class="key">Delivery</span><span class="val">${shipping === 0 ? '<strong style="color:var(--accent);">FREE</strong>' : 'Rs ' + shipping.toLocaleString('en-PK')}</span></div>
+              <div class="summary-row"><span class="key">Estimated Tax</span><span class="val">Rs ${tax.toLocaleString('en-PK')}</span></div>
               <div class="summary-row total"><span class="key">Total</span><span class="val">Rs ${total.toLocaleString('en-PK')}</span></div>
               <a href="checkout.html" class="btn-checkout">
                 <span>Proceed to Checkout</span>
                 <svg class="btn-arrow" viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
               </a>
-              <a href="index.html#collections" class="continue-shopping">Continue Shopping</a>
-              ${shipping === 0 ? '<p style="margin-top:16px;font-size:11px;color:var(--accent);text-align:center;letter-spacing:0.05em;">✓ You qualify for FREE shipping</p>' : `<p style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;">Add Rs ${(10000 - subtotal).toLocaleString('en-PK')} more for FREE shipping</p>`}
+              <a href="shop.html" class="continue-shopping">Continue Shopping</a>
+              ${shipping === 0 ? '<p style="margin-top:16px;font-size:12px;color:var(--accent);text-align:center;font-weight:600;">✓ Free Delivery across Pakistan on your order</p>' : `<p style="margin-top:16px;font-size:12px;color:var(--text-muted);text-align:center;">Add Rs ${(10000 - subtotal).toLocaleString('en-PK')} more for <strong>FREE Delivery</strong></p>`}
             </aside>
           </div>
         `;
@@ -294,11 +336,13 @@
             render();
           });
         });
+
+        renderRecentOrders();
       }
 
       render();
 
-      // Re-render when cart changes from anywhere
+      // Re-render when cart changes
       window.addEventListener('cart:changed', render);
     })();
   </script>
