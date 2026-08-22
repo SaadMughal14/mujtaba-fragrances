@@ -240,7 +240,7 @@
         <div class="maison-crystal-card">
           <div class="maison-tag-pill">
             <span class="pulse-dot"></span>
-            <span>MAISON ATELIER · 100% EXTRAIT</span>
+            <span>MUJTABA FRAGRANCES · 100% EXTRAIT</span>
           </div>
           <h2>Ethically Crafted,<br><span class="italic-gold">Exquisitely Sourced</span></h2>
           <p>Partnering with world-renowned master perfumers, we harvest rare botanicals at peak maturity to compose pure extrait de parfums of uncompromised longevity.</p>
@@ -380,64 +380,16 @@
     </div>
   </section>
 
-  <!-- ====================== STORE LOCATOR / ATELIER EXPERIENCE ====================== -->
+  <!-- ====================== STORE LOCATOR / MAP ====================== -->
   <section class="store-locator-section" id="locator">
     <div class="container">
       <div class="section-header section-center gsap-fade-up">
-        <span class="label-caps">Flagship Presence</span>
-        <h2>Experience Mujtaba in <span class="italic-gold">Person</span></h2>
-        <p style="margin: 0 auto;">Immerse your senses at our boutique atelier and olfactory bar in Karachi, Pakistan.</p>
+        <span class="label-caps">Find Us</span>
+        <h2>Mujtaba <span class="italic-gold">Fragrances</span></h2>
+        <p style="margin: 0 auto;">Karachi, Pakistan</p>
       </div>
 
-      <div class="store-locator-grid">
-        <!-- Interactive Boutique Information Card -->
-        <div class="boutique-crystal-card glass-panel gsap-fade-up">
-          <div class="boutique-card-header">
-            <span class="boutique-status-pill"><span class="status-dot pulse"></span> Open Today</span>
-            <span class="boutique-city-tag"><i class="fa-solid fa-location-dot"></i> Karachi, Pakistan</span>
-          </div>
-
-          <h3 class="boutique-name">Maison Mujtaba Atelier</h3>
-          <p class="boutique-sub">Flagship Boutique & Olfactory Lounge</p>
-
-          <div class="boutique-details-list">
-            <div class="boutique-detail-item">
-              <div class="detail-icon"><i class="fa-solid fa-building-columns"></i></div>
-              <div class="detail-text">
-                <strong>Campus & Location</strong>
-                <p>Mohammad Ali Jinnah University (MAJU), Lalazar / PECHS Block 6, Shahrah-e-Faisal, Karachi 75400, Pakistan</p>
-              </div>
-            </div>
-
-            <div class="boutique-detail-item">
-              <div class="detail-icon"><i class="fa-regular fa-clock"></i></div>
-              <div class="detail-text">
-                <strong>Visiting Hours</strong>
-                <p>Monday – Saturday: 11:00 AM – 9:00 PM<br><span class="detail-sub-note">Sunday: Private Concierge Appointments</span></p>
-              </div>
-            </div>
-
-            <div class="boutique-detail-item">
-              <div class="detail-icon"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-              <div class="detail-text">
-                <strong>In-Store Experiences</strong>
-                <p>Private Olfactory Scent Profiling · 100ml Custom Bottle Engraving · Complimentary Extrait Sample Flight</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="boutique-actions">
-            <a href="https://maps.google.com/?q=Mohammad+Ali+Jinnah+University+Karachi" target="_blank" rel="noopener noreferrer" class="btn-primary-3d boutique-dir-btn">
-              <i class="fa-solid fa-diamond-turn-right"></i>
-              <span>Get Directions</span>
-            </a>
-            <a href="tel:+923000000000" class="btn-outline boutique-contact-btn">
-              <i class="fa-solid fa-phone"></i>
-              <span>Concierge</span>
-            </a>
-          </div>
-        </div>
-
+      <div class="store-locator-single-map">
         <!-- Interactive Map Frame / Canvas -->
         <div class="locator-map-wrap glass-panel gsap-fade-up">
           <div id="atelierMap" class="atelier-map-container"></div>
@@ -446,8 +398,8 @@
               <img src="assets/images/logo.svg" alt="MF Monogram">
             </div>
             <div class="map-badge-info">
-              <div class="map-badge-title">MAJU Karachi Flagship</div>
-              <div class="map-badge-coords">24.8569° N, 67.0643° E</div>
+              <div class="map-badge-title">Mujtaba Fragrances</div>
+              <div class="map-badge-coords">Karachi, Pakistan</div>
             </div>
           </div>
         </div>
@@ -669,16 +621,16 @@
       }
     })();
 
-    // Initialize Interactive Store Locator Map (MAJU Karachi)
+    // Initialize Interactive Store Locator Map
     (function() {
       const mapContainer = document.getElementById('atelierMap');
       if (!mapContainer || typeof L === 'undefined') return;
 
-      // Coordinates for Mohammad Ali Jinnah University (MAJU), Lalazar / PECHS, Karachi
-      const majuCoords = [24.856900, 67.064330];
+      // Coordinates for Karachi location
+      const coords = [24.856900, 67.064330];
 
       const map = L.map('atelierMap', {
-        center: majuCoords,
+        center: coords,
         zoom: 15,
         zoomControl: false,
         scrollWheelZoom: false
@@ -710,21 +662,19 @@
         popupAnchor: [0, -42]
       });
 
-      const marker = L.marker(majuCoords, { icon: customPin }).addTo(map);
+      const marker = L.marker(coords, { icon: customPin }).addTo(map);
 
       const popupHtml = `
         <div class="luxury-map-popup">
-          <div class="popup-eyebrow">FLAGSHIP ATELIER</div>
-          <h4 class="popup-title">Maison Mujtaba</h4>
-          <p class="popup-loc">Mohammad Ali Jinnah University (MAJU), PECHS Block 6, Shahrah-e-Faisal, Karachi</p>
-          <div class="popup-time"><i class="fa-regular fa-clock"></i> Mon–Sat: 11:00 AM – 9:00 PM</div>
-          <a href="https://maps.google.com/?q=Mohammad+Ali+Jinnah+University+Karachi" target="_blank" rel="noopener noreferrer" class="popup-cta-btn">
+          <h4 class="popup-title">Mujtaba Fragrances</h4>
+          <p class="popup-loc">Karachi, Pakistan</p>
+          <a href="https://maps.google.com/?q=24.856900,67.064330" target="_blank" rel="noopener noreferrer" class="popup-cta-btn">
             Get Directions <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       `;
 
-      marker.bindPopup(popupHtml, { maxWidth: 280, className: 'luxury-leaflet-popup' }).openPopup();
+      marker.bindPopup(popupHtml, { maxWidth: 260, className: 'luxury-leaflet-popup' }).openPopup();
     })();
 
     // Mobile nav toggle (overrides main.js's display-based logic for cleaner UX)
