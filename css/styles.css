@@ -2660,12 +2660,6 @@ section {
   box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
   transform: translateY(-4px);
 }
-  text-transform: uppercase;
-  color: #FFFFFF;
-  margin-bottom: 14px;
-  font-weight: 500;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-}
 
 .replica-mobile-legal-inner .replica-legal-links {
   display: flex;
@@ -5744,13 +5738,14 @@ section {
   pointer-events: auto;
 }
 
-.search-modal-card {
+.search-modal-card,
+.search-modal-dialog {
   width: 100%;
   max-width: 680px;
   max-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
-  background: linear-gradient(145deg, rgba(30, 25, 18, 0.95) 0%, rgba(12, 10, 8, 0.98) 100%);
+  background: linear-gradient(145deg, rgba(30, 25, 18, 0.98) 0%, rgba(12, 10, 8, 0.99) 100%);
   border: 1.5px solid rgba(212, 175, 55, 0.45);
   border-radius: 24px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.2);
@@ -5759,50 +5754,73 @@ section {
   overflow: hidden;
 }
 
-.search-modal-backdrop.active .search-modal-card {
+.search-modal-backdrop.active .search-modal-card,
+.search-modal-backdrop.active .search-modal-dialog {
   transform: translateY(0) scale(1);
 }
 
+.search-modal-header,
 .search-input-wrapper {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 20px 24px;
+  padding: 18px 22px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
 }
 
-.search-icon-inside {
-  font-size: 18px;
+.search-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 30px;
+  padding: 10px 18px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.search-bar-wrap:focus-within {
+  border-color: var(--accent, #d4af37);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.search-icon-inside,
+.search-bar-icon {
+  font-size: 16px;
   color: var(--accent, #d4af37);
   flex-shrink: 0;
 }
 
-.search-global-input {
+.search-global-input,
+.search-modal-input {
   flex: 1;
   background: transparent;
   border: none;
   color: #ffffff;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   outline: none;
   letter-spacing: 0.02em;
+  width: 100%;
 }
 
-.search-global-input::placeholder {
+.search-global-input::placeholder,
+.search-modal-input::placeholder {
   color: rgba(255, 255, 255, 0.45);
 }
 
 .search-clear-btn {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 22px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 20px;
   line-height: 1;
   cursor: pointer;
-  padding: 4px 8px;
-  display: none;
+  padding: 2px 6px;
   transition: color 0.2s ease;
 }
 
@@ -5810,14 +5828,15 @@ section {
   color: #ffffff;
 }
 
-.search-close-btn {
+.search-close-btn,
+.search-modal-close {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: rgba(255, 255, 255, 0.8);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -5827,7 +5846,8 @@ section {
   flex-shrink: 0;
 }
 
-.search-close-btn:hover {
+.search-close-btn:hover,
+.search-modal-close:hover {
   background: rgba(212, 175, 55, 0.2);
   border-color: var(--accent, #d4af37);
   color: #ffffff;
@@ -6355,7 +6375,8 @@ section {
   align-items: center;
 }
 
-.drawer-item-qty {
+.drawer-item-qty,
+.drawer-qty-pill {
   display: inline-flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
@@ -6364,33 +6385,38 @@ section {
   overflow: hidden;
 }
 
-.drawer-item-qty button {
+.drawer-item-qty button,
+.drawer-qty-btn {
   background: none;
   border: none;
   color: #ffffff;
-  width: 26px;
-  height: 26px;
-  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.drawer-item-qty button:hover {
-  background: rgba(255, 255, 255, 0.1);
+.drawer-item-qty button:hover,
+.drawer-qty-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--accent, #d4af37);
 }
 
-.drawer-item-qty .val {
-  font-size: 12px;
+.drawer-item-qty .val,
+.drawer-qty-val {
+  font-size: 13px;
   font-weight: 600;
-  padding: 0 8px;
+  padding: 0 10px;
   color: #ffffff;
 }
 
-.drawer-item-price {
-  font-size: 13px;
+.drawer-item-price,
+.drawer-item-total {
+  font-size: 14px;
   font-weight: 700;
   color: #ffffff;
 }
