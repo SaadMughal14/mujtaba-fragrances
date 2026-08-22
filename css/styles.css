@@ -1357,18 +1357,19 @@ section {
   overflow: visible;
 }
 
-/* The rotating group — pure CSS rotation, no GSAP.
-   transform-box: fill-box makes transform-origin: center resolve to
-   the group's own bounding box center, so it spins in place. */
+/* The rotating group — pure CSS rotation.
+   The SVG transform="translate(110,110)" is NOT used because CSS transform
+   overrides it. Instead we bake the translate into the keyframes so the
+   group both rotates AND stays centered at (110,110) in the SVG. */
 .sleek-rotating-group {
-  transform-box: fill-box;
-  transform-origin: center;
+  transform-box: view-box;
+  transform-origin: 110px 110px;
   animation: sleek-spin 30s linear infinite;
 }
 
 @keyframes sleek-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from { transform: translate(110px, 110px) rotate(0deg); }
+  to { transform: translate(110px, 110px) rotate(360deg); }
 }
 
 .sleek-badge-text {
