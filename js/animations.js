@@ -225,15 +225,17 @@
     const rotatingGroup = document.querySelector('.sleek-rotating-group');
     if (!rotatingGroup) return;
 
-    // Continuous slow rotation ONLY — no scale, no y movement.
-    // transformOrigin must match the SVG center exactly so the circle
-    // rotates in its own fixed position without drifting.
+    // The group has transform="translate(110,110)" in the SVG.
+    // GSAP adds rotation around (0,0) — the group's local origin.
+    // Because the content is drawn centered at (0,0), rotation is
+    // perfectly stable with zero drift/pulsing.
+    // We use rotation: "+=360" so GSAP appends rotation to existing transform.
     gsap.to(rotatingGroup, {
-      rotation: 360,
+      rotation: '+=360',
       duration: 30,
       ease: 'none',
       repeat: -1,
-      transformOrigin: '110px 110px',
+      transformOrigin: '0 0',
     });
 
     // Simple fade-in only (no scale) when badge enters viewport
