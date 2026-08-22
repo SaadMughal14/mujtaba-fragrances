@@ -220,11 +220,48 @@
     });
   }
 
+  /* ---------- 5. Sleek Badge continuous rotation ---------- */
+  function initSleekBadge() {
+    const rotatingGroup = document.querySelector('.sleek-rotating-group');
+    if (!rotatingGroup) return;
+
+    // Continuous slow rotation — very subtle, 30s per revolution
+    gsap.to(rotatingGroup, {
+      rotation: 360,
+      duration: 30,
+      ease: 'none',
+      repeat: -1,
+      transformOrigin: '110px 110px',
+    });
+
+    // Subtle scale-in when badge enters viewport
+    if (hasScrollTrigger) {
+      const badge = document.querySelector('.sleek-badge');
+      if (badge) {
+        gsap.fromTo(badge,
+          { opacity: 0, scale: 0.85 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: badge,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }
+  }
+
   /* ---------- Init on DOMContentLoaded ---------- */
   function init() {
     initHero();
     initScrollReveals();
     initParallax();
+    initSleekBadge();
 
     // Refresh ScrollTrigger after fonts/images load to get correct positions
     if (hasScrollTrigger) {

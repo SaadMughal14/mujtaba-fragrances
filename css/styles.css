@@ -1336,24 +1336,75 @@ section {
   gap: 40px;
 }
 
-/* Three.js Interactive 3D Emblem Canvas Wrap */
-.feature-3d-wrap,
-.luxury-gold-seal {
-  width: 250px;
-  height: 250px;
+/* ==========================================================================
+   SLEEK MINIMAL CIRCULAR BADGE (replaces luxury-gold-seal)
+   Thin gold rings, rotating text, minimal botanical icon — matches reference
+   ========================================================================== */
+.sleek-badge {
+  width: 220px;
+  height: 220px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(35, 28, 18, 0.8) 0%, rgba(10, 8, 5, 0.95) 85%);
-  border-radius: 50%;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 35px rgba(212, 175, 55, 0.18);
+}
+
+.sleek-badge-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* The rotating group (text ring) — animated by GSAP, CSS fallback below */
+.sleek-rotating-group {
+  transform-origin: 110px 110px;
+}
+
+.sleek-badge-text {
+  fill: #D4AF37;
+  font-family: var(--font-body);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  transition: opacity 0.4s ease, fill 0.4s ease;
+}
+
+.sleek-center-icon {
+  transition: transform 0.6s ease;
+}
+
+.sleek-badge:hover .sleek-badge-text {
+  opacity: 1;
+  fill: #F5E1A4;
+}
+
+/* CSS-only fallback rotation if GSAP doesn't load */
+.no-gsap .sleek-rotating-group {
+  animation: sleekRotate 40s linear infinite;
+}
+
+@keyframes sleekRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Legacy seal classes (kept for backward compat but unused) ---------- */
+.feature-3d-wrap,
+.luxury-gold-seal {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
 }
 
-.luxury-gold-seal.pulse-spin {
+.luxury-gold-seal.pulse-spin,
+.sleek-badge.pulse-spin {
   animation: sealPulse 0.8s ease-in-out;
 }
 
@@ -4983,17 +5034,29 @@ section {
   }
   .footer-bottom-links { justify-content: center; flex-wrap: wrap; }
 
+  /* Mobile scroll-snap: each product snaps into full view */
   .snap-container {
-    height: auto !important;
-    overflow-y: visible !important;
-    scroll-snap-type: none !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow-y: scroll !important;
+    scroll-snap-type: y mandatory !important;
+    -webkit-overflow-scrolling: touch;
   }
 
   .snap-section {
-    min-height: auto !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
     height: auto !important;
-    scroll-snap-align: none !important;
-    padding: 35px 0 25px !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    padding: 90px 0 40px !important;
+    /* Divider between products so they don't mix */
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    position: relative;
+  }
+
+  .snap-section:last-child {
+    border-bottom: none;
   }
 
   .snap-section:first-child {
@@ -5205,7 +5268,7 @@ section {
 @media (max-width: 640px) {
   .container { padding: 0 1rem; width: 100%; max-width: 100vw; box-sizing: border-box; }
   section { padding: 40px 0; }
-  .snap-section { padding: 30px 0 20px !important; }
+  /* Snap-section padding inherited from 768px breakpoint — keeps full-screen snap */
   .snap-section:first-child { padding-top: 85px !important; }
 
   body, p { font-size: 12.5px; line-height: 1.5; }

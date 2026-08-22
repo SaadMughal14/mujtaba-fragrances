@@ -969,11 +969,11 @@
       textContainer.style.transform = 'translateY(10px)';
       textContainer.style.transition = 'all 0.3s ease';
 
-      const goldSeal = document.getElementById('feature3dContainer');
-      if (goldSeal) {
-        goldSeal.classList.remove('pulse-spin');
-        void goldSeal.offsetWidth;
-        goldSeal.classList.add('pulse-spin');
+      const sleekBadge = document.getElementById('sleekBadge');
+      if (sleekBadge) {
+        sleekBadge.classList.remove('pulse-spin');
+        void sleekBadge.offsetWidth;
+        sleekBadge.classList.add('pulse-spin');
       }
 
       setTimeout(() => {
