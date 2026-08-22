@@ -5454,7 +5454,8 @@ section {
 .hero-mobile-bg { display: none; }
 .btn-hero-glass-mobile { display: none !important; }
 .feature-mobile-showcase { display: none !important; }
-.feature-desktop-view { display: block; }
+/* feature-desktop-view must NOT set display — it would override .feature-split's grid */
+.feature-desktop-view { }
 
 /* ==========================================================================
    STORE LOCATOR / MAP
