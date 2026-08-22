@@ -108,16 +108,45 @@
     revealEls.forEach((el) => el.classList.add('active'));
   }
 
-  /* ---------- Mobile Nav Toggle ---------- */
-  const navToggle = document.querySelector('.nav-toggle') || document.getElementById('navToggle');
-  const navLinks = document.querySelector('.nav-links') || document.getElementById('navLinks');
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navLinks.classList.toggle('open');
-      navToggle.classList.toggle('active');
+  /* ---------- Mobile Nav Toggle Engine ---------- */
+  function initMobileNav() {
+    const navToggles = document.querySelectorAll('.nav-toggle, #navToggle');
+    const navLinksList = document.querySelectorAll('.nav-links, #navLinks');
+
+    navToggles.forEach((toggle) => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = toggle.classList.toggle('active');
+        navLinksList.forEach((links) => {
+          if (isOpen) {
+            links.classList.add('open');
+          } else {
+            links.classList.remove('open');
+          }
+        });
+      });
+    });
+
+    // Close when clicking any nav link
+    navLinksList.forEach((links) => {
+      links.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          navToggles.forEach((t) => t.classList.remove('active'));
+          navLinksList.forEach((l) => l.classList.remove('open'));
+        });
+      });
+    });
+
+    // Close when clicking outside navbar
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-links') && !e.target.closest('.nav-toggle') && !e.target.closest('#navToggle')) {
+        navToggles.forEach((t) => t.classList.remove('active'));
+        navLinksList.forEach((l) => l.classList.remove('open'));
+      }
     });
   }
+  initMobileNav();
 
   /* ---------- Filter Tags Helper ---------- */
   const filterTags = document.querySelectorAll('.filter-tag');
@@ -456,13 +485,8 @@
                 <div class="search-result-item" onclick="window.location.href='product.html?id=${p.id}'">
                   <img src="${p.image}" alt="${p.name}" class="search-item-img">
                   <div class="search-item-info">
-                    <div class="search-item-top">
-                      <span class="gender-badge badge-${p.collection}">${genderLabel}</span>
-                      <span class="search-item-price">${window.formatPrice(price50)}</span>
-                    </div>
                     <h4 class="search-item-name">${p.name}</h4>
-                    <p class="search-item-desc">${p.tagline}</p>
-                    <div class="search-item-notes"><strong>Notes:</strong> ${p.notes && p.notes.top ? p.notes.top.split(',').slice(0,2).join(', ') : 'Citrus & Amber'}</div>
+                    <span class="search-item-price">${window.formatPrice(price50)}</span>
                   </div>
                   <div class="search-item-actions" onclick="event.stopPropagation();">
                     <button type="button" class="btn-card-add btn-search-add" data-add-to-cart="${p.id}" data-size-ml="50">
