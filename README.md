@@ -57,7 +57,7 @@ mujtaba-fragrances/
 
 ## Setup Instructions
 
-### 1. Clone & Install
+### 1. Clone & Install.
 
 No build step needed - just clone and deploy.
 
