@@ -219,62 +219,59 @@
               </defs>
 
               <!-- ===== SINGLE UNIFIED ROTATING COMPONENT ===== -->
-              <!-- Outer group: translates to center (110,110) — GSAP must NOT touch this.
-                   Inner group: handles rotation around (0,0) — GSAP targets this. -->
-              <g transform="translate(110, 110)">
-                <g class="sleek-rotating-group">
+              <!-- CSS animation handles rotation — more reliable than GSAP for SVG.
+                   transform-origin: center + transform-box: fill-box = rotates in place. -->
+              <g class="sleek-rotating-group" transform="translate(110, 110)">
 
-                  <!-- Outer thin ring (centered at 0,0) -->
-                  <circle cx="0" cy="0" r="100" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.5"/>
+                <!-- Outer thin ring (full opacity, slightly thicker) -->
+                <circle cx="0" cy="0" r="100" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="1"/>
 
-                  <!-- Top text: "CRAFTED WITH CARE" on upper arc -->
-                  <text class="sleek-badge-text">
-                    <textPath href="#arc-top" startOffset="50%" text-anchor="middle">
-                      CRAFTED WITH CARE
-                    </textPath>
-                  </text>
+                <!-- Top text: "CRAFTED WITH CARE" on upper arc -->
+                <text class="sleek-badge-text">
+                  <textPath href="#arc-top" startOffset="50%" text-anchor="middle">
+                    CRAFTED WITH CARE
+                  </textPath>
+                </text>
 
-                  <!-- Bottom text: "CONSCIOUS BY NATURE" on lower arc -->
-                  <text class="sleek-badge-text">
-                    <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle">
-                      CONSCIOUS BY NATURE
-                    </textPath>
-                  </text>
+                <!-- Bottom text: "CONSCIOUS BY NATURE" on lower arc -->
+                <text class="sleek-badge-text">
+                  <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle">
+                    CONSCIOUS BY NATURE
+                  </textPath>
+                </text>
 
-                  <!-- Dot separators at 9 o'clock and 3 o'clock -->
-                  <circle cx="-90" cy="0" r="2" fill="#D4AF37" opacity="0.7"/>
-                  <circle cx="90" cy="0" r="2" fill="#D4AF37" opacity="0.7"/>
+                <!-- Dot separators at 9 o'clock and 3 o'clock -->
+                <circle cx="-90" cy="0" r="2.5" fill="#D4AF37" opacity="1"/>
+                <circle cx="90" cy="0" r="2.5" fill="#D4AF37" opacity="1"/>
 
-                  <!-- Inner thin ring (centered at 0,0) -->
-                  <circle cx="0" cy="0" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.4"/>
+                <!-- Inner thin ring (full opacity) -->
+                <circle cx="0" cy="0" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="1"/>
 
-                </g>
               </g>
 
               <!-- ===== CENTER ICON (static) — 3-leaf botanical sprout ===== -->
-              <!-- All 3 leaves point UP: center leaf tallest, side leaves angled up-outward.
-                   Wide rounded leaves converging to a point at the bottom. -->
+              <!-- Thicker strokes for full opacity / clearer visibility -->
               <g class="sleek-center-icon" transform="translate(110, 110)">
                 <!-- Center leaf (tallest, points straight up) -->
                 <path d="M 0,-34 C -10,-26 -12,-14 0,-4 C 12,-14 10,-26 0,-34 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
                 <!-- Center leaf vein -->
-                <path d="M 0,-30 Q -1,-18 0,-8" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.6"/>
+                <path d="M 0,-30 Q -1,-18 0,-8" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.8"/>
 
                 <!-- Left leaf (angled up-left, wide and rounded) -->
                 <path d="M -2,-6 C -16,-18 -28,-14 -24,-2 C -18,4 -10,2 -2,-6 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
                 <!-- Left leaf vein -->
-                <path d="M -4,-8 Q -12,-10 -20,-4" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.6"/>
+                <path d="M -4,-8 Q -12,-10 -20,-4" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.8"/>
 
                 <!-- Right leaf (angled up-right, mirror of left) -->
                 <path d="M 2,-6 C 16,-18 28,-14 24,-2 C 18,4 10,2 2,-6 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
                 <!-- Right leaf vein -->
-                <path d="M 4,-8 Q 12,-10 20,-4" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.6"/>
+                <path d="M 4,-8 Q 12,-10 20,-4" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.8"/>
 
                 <!-- Stem (short, tapered to a point at bottom) -->
-                <path d="M -3,0 L 0,12 L 3,0" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M -3,0 L 0,12 L 3,0" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
               </g>
             </svg>
           </div>

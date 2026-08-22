@@ -1357,20 +1357,28 @@ section {
   overflow: visible;
 }
 
-/* The rotating group (text ring) — animated by GSAP */
-/* transform-origin set to exact center of 220x220 viewBox in SVG user units */
+/* The rotating group — pure CSS rotation, no GSAP.
+   transform-box: fill-box makes transform-origin: center resolve to
+   the group's own bounding box center, so it spins in place. */
 .sleek-rotating-group {
-  transform-origin: 110px 110px;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sleek-spin 30s linear infinite;
+}
+
+@keyframes sleek-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .sleek-badge-text {
   fill: #D4AF37;
   font-family: var(--font-body);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  opacity: 0.9;
+  opacity: 1;
   transition: opacity 0.4s ease, fill 0.4s ease;
 }
 
@@ -1383,15 +1391,7 @@ section {
   fill: #F5E1A4;
 }
 
-/* CSS-only fallback rotation if GSAP doesn't load */
-.no-gsap .sleek-rotating-group {
-  animation: sleekRotate 40s linear infinite;
-}
-
-@keyframes sleekRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+/* (Legacy fallback removed — rotation is now always CSS-based via .sleek-rotating-group) */
 
 /* ---------- Legacy seal classes (kept for backward compat but unused) ---------- */
 .feature-3d-wrap,

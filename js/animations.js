@@ -220,23 +220,12 @@
     });
   }
 
-  /* ---------- 5. Sleek Badge continuous rotation ---------- */
+  /* ---------- 5. Sleek Badge — CSS handles rotation, GSAP only does fade-in ---------- */
   function initSleekBadge() {
-    const rotatingGroup = document.querySelector('.sleek-rotating-group');
-    if (!rotatingGroup) return;
-
-    // The group has transform="translate(110,110)" in the SVG.
-    // GSAP adds rotation around (0,0) — the group's local origin.
-    // Because the content is drawn centered at (0,0), rotation is
-    // perfectly stable with zero drift/pulsing.
-    // We use rotation: "+=360" so GSAP appends rotation to existing transform.
-    gsap.to(rotatingGroup, {
-      rotation: '+=360',
-      duration: 30,
-      ease: 'none',
-      repeat: -1,
-      transformOrigin: '0 0',
-    });
+    // Rotation is handled purely by CSS animation (sleek-spin keyframes).
+    // GSAP was causing the badge to drift across the screen because its
+    // matrix-based transform overwrote the SVG translate attribute.
+    // CSS transform-box: fill-box + transform-origin: center is stable.
 
     // Simple fade-in only (no scale) when badge enters viewport
     if (hasScrollTrigger) {
