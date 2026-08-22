@@ -206,11 +206,11 @@
           <div class="sleek-badge" id="sleekBadge">
             <svg class="sleek-badge-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <!-- Arc paths centered at (0,0) for the translated rotating group -->
+                <!-- Arc paths centered at (110,110) — the SVG center -->
                 <!-- Top arc: upper half, left to right (text reads upright on top) -->
-                <path id="arc-top" fill="none" d="M -88,0 A 88,88 0 0,1 88,0"/>
+                <path id="arc-top" fill="none" d="M 22,110 A 88,88 0 0,1 198,110"/>
                 <!-- Bottom arc: lower half, left to right (text reads upright on bottom) -->
-                <path id="arc-bottom" fill="none" d="M -88,0 A 88,88 0 0,0 88,0"/>
+                <path id="arc-bottom" fill="none" d="M 22,110 A 88,88 0 0,0 198,110"/>
                 <linearGradient id="sleekGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#F5E1A4"/>
                   <stop offset="50%" stop-color="#D4AF37"/>
@@ -219,12 +219,12 @@
               </defs>
 
               <!-- ===== SINGLE UNIFIED ROTATING COMPONENT ===== -->
-              <!-- CSS animation handles rotation — more reliable than GSAP for SVG.
-                   transform-origin: center + transform-box: fill-box = rotates in place. -->
-              <g class="sleek-rotating-group" transform="translate(110, 110)">
+              <!-- Content drawn at SVG center (110,110). CSS transform-box: fill-box
+                   rotates around the group's bbox center (= 110,110). No translate needed. -->
+              <g class="sleek-rotating-group">
 
-                <!-- Outer thin ring (full opacity, slightly thicker) -->
-                <circle cx="0" cy="0" r="100" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="1"/>
+                <!-- Outer thin ring (centered at 110,110) -->
+                <circle cx="110" cy="110" r="100" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="1"/>
 
                 <!-- Top text: "CRAFTED WITH CARE" on upper arc -->
                 <text class="sleek-badge-text">
@@ -241,11 +241,11 @@
                 </text>
 
                 <!-- Dot separators at 9 o'clock and 3 o'clock -->
-                <circle cx="-90" cy="0" r="2.5" fill="#D4AF37" opacity="1"/>
-                <circle cx="90" cy="0" r="2.5" fill="#D4AF37" opacity="1"/>
+                <circle cx="20" cy="110" r="2.5" fill="#D4AF37" opacity="1"/>
+                <circle cx="200" cy="110" r="2.5" fill="#D4AF37" opacity="1"/>
 
-                <!-- Inner thin ring (full opacity) -->
-                <circle cx="0" cy="0" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="1"/>
+                <!-- Inner thin ring (centered at 110,110) -->
+                <circle cx="110" cy="110" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="1"/>
 
               </g>
 
