@@ -233,8 +233,8 @@
             <button type="button" class="btn-card-add" data-add-to-cart="${p.id}" data-size-ml="50">
               <i class="fa-solid fa-bag-shopping"></i> Add to Cart
             </button>
-            <button type="button" class="btn-quick-view" title="Quick View" onclick="event.stopPropagation(); window.openQuickView('${p.id}');">
-              <i class="fa-solid fa-eye"></i>
+            <button type="button" class="btn-notes btn-notes-sm" title="Fragrance Notes" onclick="event.stopPropagation(); window.openNotesModal('${p.id}');">
+              <i class="fa-solid fa-feather-pointed"></i> Notes
             </button>
           </div>
         </div>
@@ -242,153 +242,147 @@
     `;
   };
 
-  /* ---------- QUICK VIEW MODAL LOGIC ---------- */
-  function ensureQuickViewModal() {
-    let backdrop = document.getElementById('quickViewBackdrop');
+  /* ---------- FRAGRANCE NOTES MODAL LOGIC ---------- */
+  function ensureNotesModal() {
+    let backdrop = document.getElementById('notesModalBackdrop') || document.getElementById('quickViewBackdrop');
     if (!backdrop) {
       backdrop = document.createElement('div');
-      backdrop.id = 'quickViewBackdrop';
-      backdrop.className = 'quick-view-backdrop';
+      backdrop.id = 'notesModalBackdrop';
+      backdrop.className = 'notes-modal-backdrop quick-view-backdrop';
       backdrop.innerHTML = `
-        <div class="quick-view-modal">
-          <button class="quick-view-close" id="quickViewCloseBtn" aria-label="Close modal">&times;</button>
-          <div id="quickViewContent"></div>
+        <div class="notes-modal-dialog quick-view-modal">
+          <button class="quick-view-close" id="notesModalCloseBtn" aria-label="Close notes modal">&times;</button>
+          <div id="notesModalContent"></div>
         </div>
       `;
       document.body.appendChild(backdrop);
 
-      const closeBtn = backdrop.querySelector('#quickViewCloseBtn');
-      closeBtn.addEventListener('click', () => window.closeQuickView());
+      const closeBtn = backdrop.querySelector('#notesModalCloseBtn');
+      closeBtn.addEventListener('click', () => window.closeNotesModal());
       backdrop.addEventListener('click', (e) => {
-        if (e.target === backdrop) window.closeQuickView();
+        if (e.target === backdrop) window.closeNotesModal();
       });
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && backdrop.classList.contains('active')) {
-          window.closeQuickView();
+          window.closeNotesModal();
         }
       });
     }
     return backdrop;
   }
 
-  window.openQuickView = function (productId) {
+  window.openNotesModal = function (productId) {
     if (!window.PRODUCTS) return;
     const p = window.findProduct ? window.findProduct(productId) : window.PRODUCTS.find(x => x.id === productId);
     if (!p) return;
 
-    const backdrop = ensureQuickViewModal();
-    const content = backdrop.querySelector('#quickViewContent');
+    const backdrop = ensureNotesModal();
+    const content = backdrop.querySelector('#notesModalContent') || backdrop.querySelector('#quickViewContent');
 
     const collection = p.collection || 'unisex';
     const badgeClass = collection === 'men' ? 'badge-men' : (collection === 'women' ? 'badge-women' : 'badge-unisex');
     const genderLabel = collection === 'men' ? "Men's" : (collection === 'women' ? "Women's" : "Unisex");
     const price50 = p.sizes && p.sizes[0] ? p.sizes[0].price : p.price;
-    const price100 = p.sizes && p.sizes[1] ? p.sizes[1].price : Math.round(p.price * 1.6);
 
-    let selectedSize = 50;
-    let selectedPrice = price50;
-    let qty = 1;
+    const topNote = p.notes && p.notes.top ? p.notes.top : 'Fresh opening notes';
+    const heartNote = p.notes && p.notes.heart ? p.notes.heart : 'Rich floral/woody core';
+    const baseNote = p.notes && p.notes.base ? p.notes.base : 'Deep amber & musk foundation';
 
     content.innerHTML = `
-      <div class="quick-view-grid">
-        <div class="quick-view-img-wrap skeleton-loader">
-          <img src="${p.image}" alt="${p.name}" onload="this.parentElement.classList.remove('skeleton-loader');" onerror="this.parentElement.classList.remove('skeleton-loader');">
-        </div>
-        <div>
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+      <div class="notes-modal-wrapper">
+        <div class="notes-header-block">
+          <div class="notes-badge-row">
             <span class="gender-badge ${badgeClass}">${genderLabel}</span>
-            <span style="font-size:12px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted);">${p.collectionName} Collection</span>
+            <span class="notes-olfactory-tag"><i class="fa-solid fa-feather-pointed"></i> Fragrance Notes · خوشبو کے نوٹس</span>
           </div>
-          <h2 style="font-family:var(--font-heading); font-size:28px; font-weight:300; margin-bottom:6px; color:#fff;">${p.name}</h2>
-          <p style="font-size:14px; color:var(--accent); font-style:italic; margin-bottom:14px;">"${p.tagline}"</p>
-          
-          <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:18px;">${p.description}</p>
-          
-          <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin-bottom:18px; font-size:12px;">
-            <div style="margin-bottom:4px;"><strong style="color:var(--accent);">Top:</strong> <span style="color:#d1d5db;">${p.notes ? p.notes.top : 'N/A'}</span></div>
-            <div style="margin-bottom:4px;"><strong style="color:var(--accent);">Heart:</strong> <span style="color:#d1d5db;">${p.notes ? p.notes.heart : 'N/A'}</span></div>
-            <div><strong style="color:var(--accent);">Base:</strong> <span style="color:#d1d5db;">${p.notes ? p.notes.base : 'N/A'}</span></div>
-          </div>
+          <h2 class="notes-perfume-title">${p.name}</h2>
+          <p class="notes-perfume-tagline">"${p.tagline}"</p>
+        </div>
 
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
-            <div>
-              <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:4px;">Select Size</div>
-              <div style="display:flex; gap:8px;">
-                <button type="button" class="size-pill active" id="qvSize50">50 ml</button>
-                <button type="button" class="size-pill" id="qvSize100">100 ml</button>
+        <div class="notes-pyramid-grid">
+          <!-- TOP NOTES -->
+          <div class="note-tier-card tier-top">
+            <div class="note-tier-header">
+              <span class="tier-icon">🌸</span>
+              <div>
+                <h4>Top Notes <span class="tier-urdu">· پہلی خوشبو</span></h4>
+                <span class="tier-timing">First 15–30 mins (Opening)</span>
               </div>
             </div>
-            <div style="text-align:right;">
-              <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:4px;">Price</div>
-              <div id="qvPriceDisplay" style="font-size:22px; font-weight:600; color:var(--accent);">${window.formatPrice(price50)}</div>
-            </div>
+            <p class="note-tier-ingredients">${topNote}</p>
           </div>
 
-          <div style="display:flex; gap:12px; align-items:center;">
-            <div style="display:flex; align-items:center; border:1px solid rgba(255,255,255,0.2); border-radius:10px; overflow:hidden; background:rgba(0,0,0,0.3);">
-              <button type="button" id="qvMinusQty" style="padding:8px 14px; background:none; border:none; color:#fff; cursor:pointer;">-</button>
-              <span id="qvQtyDisplay" style="padding:8px 12px; font-size:14px; font-weight:600; color:#fff;">1</span>
-              <button type="button" id="qvPlusQty" style="padding:8px 14px; background:none; border:none; color:#fff; cursor:pointer;">+</button>
+          <!-- HEART NOTES -->
+          <div class="note-tier-card tier-heart">
+            <div class="note-tier-header">
+              <span class="tier-icon">🌿</span>
+              <div>
+                <h4>Heart Notes <span class="tier-urdu">· درمیانی خوشبو</span></h4>
+                <span class="tier-timing">2–4 hours (The Core Character)</span>
+              </div>
             </div>
-            <button type="button" class="btn-card-add" id="qvAddToCartBtn" style="padding:12px 20px; font-size:13px;">
-              <i class="fa-solid fa-bag-shopping"></i> Add to Cart
-            </button>
+            <p class="note-tier-ingredients">${heartNote}</p>
           </div>
+
+          <!-- BASE NOTES -->
+          <div class="note-tier-card tier-base">
+            <div class="note-tier-header">
+              <span class="tier-icon">🪵</span>
+              <div>
+                <h4>Base Notes <span class="tier-urdu">· دیرپا اثر</span></h4>
+                <span class="tier-timing">8–18+ hours (Lingering Foundation)</span>
+              </div>
+            </div>
+            <p class="note-tier-ingredients">${baseNote}</p>
+          </div>
+        </div>
+
+        <div class="notes-performance-strip">
+          <div class="perf-metric">
+            <span class="perf-lbl"><i class="fa-regular fa-clock"></i> Longevity</span>
+            <span class="perf-val">${p.longevity}</span>
+          </div>
+          <div class="perf-divider"></div>
+          <div class="perf-metric">
+            <span class="perf-lbl"><i class="fa-solid fa-wind"></i> Sillage</span>
+            <span class="perf-val">${p.sillage || 'Strong'}</span>
+          </div>
+          <div class="perf-divider"></div>
+          <div class="perf-metric">
+            <span class="perf-lbl"><i class="fa-regular fa-calendar"></i> Season</span>
+            <span class="perf-val">${p.season || 'All Season'}</span>
+          </div>
+        </div>
+
+        <div class="notes-action-row">
+          <a href="product.html?id=${p.id}" class="btn-target" style="flex:1; text-align:center; padding:12px 18px; font-size:13px;">
+            Full Details & Story →
+          </a>
+          <button type="button" class="btn-glass" style="flex:1; justify-content:center; padding:12px 18px; font-size:13px;" onclick="
+            if (window.MF && window.MF.cart) {
+              window.MF.cart.add('${p.id}', 1, 50);
+              showToast('${p.name} (50ml) added to cart', 'cart.html');
+              window.closeNotesModal();
+            }
+          ">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-right:6px;"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+            Add 50ml (Rs ${price50.toLocaleString('en-PK')})
+          </button>
         </div>
       </div>
     `;
 
-    const btn50 = content.querySelector('#qvSize50');
-    const btn100 = content.querySelector('#qvSize100');
-    const priceDisp = content.querySelector('#qvPriceDisplay');
-    const minusBtn = content.querySelector('#qvMinusQty');
-    const plusBtn = content.querySelector('#qvPlusQty');
-    const qtyDisp = content.querySelector('#qvQtyDisplay');
-    const addBtn = content.querySelector('#qvAddToCartBtn');
-
-    btn50.addEventListener('click', () => {
-      btn50.classList.add('active');
-      btn100.classList.remove('active');
-      selectedSize = 50;
-      selectedPrice = price50;
-      priceDisp.textContent = window.formatPrice(price50);
-    });
-
-    btn100.addEventListener('click', () => {
-      btn100.classList.add('active');
-      btn50.classList.remove('active');
-      selectedSize = 100;
-      selectedPrice = price100;
-      priceDisp.textContent = window.formatPrice(price100);
-    });
-
-    minusBtn.addEventListener('click', () => {
-      if (qty > 1) {
-        qty--;
-        qtyDisp.textContent = qty;
-      }
-    });
-
-    plusBtn.addEventListener('click', () => {
-      qty++;
-      qtyDisp.textContent = qty;
-    });
-
-    addBtn.addEventListener('click', () => {
-      if (window.MF && window.MF.cart) {
-        window.MF.cart.add(p.id, qty, selectedSize);
-        showToast(`${p.name} (${selectedSize}ml x${qty}) added to cart`, 'cart.html');
-        window.closeQuickView();
-      }
-    });
-
     backdrop.classList.add('active');
   };
 
-  window.closeQuickView = function () {
-    const backdrop = document.getElementById('quickViewBackdrop');
+  window.closeNotesModal = function () {
+    const backdrop = document.getElementById('notesModalBackdrop') || document.getElementById('quickViewBackdrop');
     if (backdrop) backdrop.classList.remove('active');
   };
+
+  // Backward compatibility alias
+  window.openQuickView = window.openNotesModal;
+  window.closeQuickView = window.closeNotesModal;
 
   /* ---------- Update cart badge on cart:changed ---------- */
   window.addEventListener('cart:changed', () => {

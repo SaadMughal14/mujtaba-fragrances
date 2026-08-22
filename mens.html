@@ -117,8 +117,7 @@
           <div class="container">
             <div class="fragrance-grid">
               <div class="fragrance-content reveal-stagger">
-                <span class="label-caps">Signature Men's Fragrance · ${String(idx+1).padStart(2,'0')}</span>
-                <h1>${p.name.replace(/ /g, '<br>')}</h1>
+                <h1>${p.name}</h1>
                 <div class="fragrance-price" id="priceDisplay-${p.id}">Rs ${price50.toLocaleString('en-PK')}</div>
                 <p class="fragrance-desc">${p.description}</p>
                 
@@ -138,18 +137,20 @@
                   ">100ml</button>
                 </div>
 
-                <div class="fragrance-actions" style="display:flex; gap:12px; align-items:center;">
+                <div class="fragrance-actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                   <button class="btn-glass" id="addBtn-${p.id}" data-add-to-cart="${p.id}" data-size-ml="50">
                     <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
                     <span>Add to Cart</span>
                   </button>
-                  <button type="button" class="btn-quick-view" style="width:44px; height:44px; border-radius:12px; font-size:16px;" title="Quick View" onclick="window.openQuickView('${p.id}');">
-                    <i class="fa-solid fa-eye"></i>
+                  <button type="button" class="btn-notes" title="Fragrance Notes" onclick="window.openNotesModal('${p.id}');">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span>Notes</span>
                   </button>
                   <a href="product.html?id=${p.id}" class="btn-target" style="padding:12px 20px;">View Details</a>
                 </div>
               </div>
               <div class="fragrance-image-wrap reveal skeleton-loader">
+                <span class="label-caps fragrance-top-badge">Signature Men's Fragrance · ${String(idx+1).padStart(2,'0')}</span>
                 <div class="butterfly butterfly-1">
                   <svg viewBox="0 0 60 60">
                     <path d="M30 30 C 20 10, 5 15, 8 30 C 5 45, 20 50, 30 30 Z" fill="${c1}" opacity="0.9"/>
