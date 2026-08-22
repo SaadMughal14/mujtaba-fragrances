@@ -6220,6 +6220,57 @@ section {
   scrollbar-width: thin;
 }
 
+.drawer-shipping-bar {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawer-shipping-bar.unlocked {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+}
+
+.drawer-shipping-bar .ship-icon {
+  background: #10b981;
+  color: #050403;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ship-progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ship-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37 0%, #fce088 100%);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
 .cart-drawer-footer {
   padding: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
