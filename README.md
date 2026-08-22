@@ -59,7 +59,7 @@ mujtaba-fragrances/
 
 ### 1. Clone & Install
 
-No build step needed — just clone and deploy.
+No build step needed - just clone and deploy.
 
 ```bash
 git clone https://github.com/SaadMughal14/mujtaba-fragrances.git
