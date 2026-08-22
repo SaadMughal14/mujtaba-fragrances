@@ -204,29 +204,50 @@
         </div>
         <div class="feature-badge-wrap gsap-fade-up">
           <div class="sleek-badge" id="sleekBadge">
-            <svg class="sleek-badge-svg" viewBox="0 0 220 220">
+            <svg class="sleek-badge-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <path id="circle-text-sleek" d="M 110, 110 m -88, 0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0"/>
+                <!-- Single shared path for text — centered exactly at 110,110 -->
+                <path id="circle-text-sleek" fill="none" d="M 110,22 A 88,88 0 1,1 109.99,22"/>
                 <linearGradient id="sleekGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#F5E1A4"/>
                   <stop offset="50%" stop-color="#D4AF37"/>
                   <stop offset="100%" stop-color="#A8884A"/>
                 </linearGradient>
               </defs>
-              <!-- Thin outer ring -->
-              <circle cx="110" cy="110" r="105" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.5"/>
-              <!-- Rotating text ring -->
-              <g class="sleek-rotating-group">
+
+              <!-- ===== SINGLE UNIFIED ROTATING COMPONENT ===== -->
+              <!-- Everything that should rotate is inside this one group -->
+              <g class="sleek-rotating-group" style="transform-origin: 110px 110px;">
+
+                <!-- Outer thin ring (r=100, well within 220 viewBox) -->
+                <circle cx="110" cy="110" r="100" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.5"/>
+
+                <!-- Rotating text on circle path -->
                 <text class="sleek-badge-text">
-                  <textPath href="#circle-text-sleek" startOffset="0">CRAFTED WITH CARE · CONSCIOUS BY NATURE · CRAFTED WITH CARE · CONSCIOUS BY NATURE ·</textPath>
+                  <textPath href="#circle-text-sleek" startOffset="0">
+                    CRAFTED WITH CARE · CONSCIOUS BY NATURE · CRAFTED WITH CARE · CONSCIOUS BY NATURE ·
+                  </textPath>
                 </text>
+
+                <!-- Inner thin ring -->
+                <circle cx="110" cy="110" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.4"/>
+
+                <!-- Tick marks at cardinal points -->
+                <line x1="110" y1="14" x2="110" y2="22" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
+                <line x1="110" y1="198" x2="110" y2="206" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
+                <line x1="14" y1="110" x2="22" y2="110" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
+                <line x1="198" y1="110" x2="206" y2="110" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
+
               </g>
-              <!-- Inner thin circle -->
-              <circle cx="110" cy="110" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.4"/>
-              <!-- Center icon: minimal botanical/floral line drawing -->
+
+              <!-- ===== CENTER ICON (static, does not rotate) ===== -->
+              <!-- Simple diamond + dot — perfectly centered at 110,110 -->
               <g class="sleek-center-icon" transform="translate(110, 110)">
-                <path d="M 0,-22 C -10,-12 -10,-2 0,0 C 10,-2 10,-12 0,-22 Z M 0,0 C -10,0 -16,8 0,18 C 16,8 10,0 0,0 Z" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" stroke-linejoin="round"/>
-                <line x1="0" y1="-22" x2="0" y2="18" stroke="url(#sleekGoldGrad)" stroke-width="0.8"/>
+                <!-- Small diamond outline -->
+                <path d="M 0,-16 L 12,0 L 0,16 L -12,0 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" stroke-linejoin="round"/>
+                <!-- Center dot -->
+                <circle cx="0" cy="0" r="2.5" fill="url(#sleekGoldGrad)"/>
               </g>
             </svg>
           </div>

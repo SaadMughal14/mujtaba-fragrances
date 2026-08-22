@@ -1352,10 +1352,12 @@ section {
 .sleek-badge-svg {
   width: 100%;
   height: 100%;
+  display: block;
   overflow: visible;
 }
 
-/* The rotating group (text ring) — animated by GSAP, CSS fallback below */
+/* The rotating group (text ring) — animated by GSAP */
+/* transform-origin set to exact center of 220x220 viewBox in SVG user units */
 .sleek-rotating-group {
   transform-origin: 110px 110px;
 }

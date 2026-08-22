@@ -226,6 +226,7 @@
     if (!rotatingGroup) return;
 
     // Continuous slow rotation — very subtle, 30s per revolution
+    // transformOrigin matches CSS: 110px 110px (center of 220x220 viewBox)
     gsap.to(rotatingGroup, {
       rotation: 360,
       duration: 30,
