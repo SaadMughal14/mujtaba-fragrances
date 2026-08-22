@@ -100,9 +100,12 @@
           <div class="container">
             <div class="fragrance-grid">
               <div class="fragrance-content reveal-stagger">
+                <span class="label-caps fragrance-top-label">Signature Women's Fragrance · ${String(idx+1).padStart(2,'0')}</span>
                 <h1>${p.name.toUpperCase()}</h1>
                 <div class="fragrance-price" id="priceDisplay-${p.id}">Rs ${price50.toLocaleString('en-PK')}</div>
-                <p class="fragrance-desc">${p.description}</p>
+                <p class="fragrance-desc" onclick="this.classList.toggle('is-expanded')" title="Tap to expand description">
+                  <span class="desc-text">${p.description}</span><span class="desc-dots" role="button" aria-label="Expand description"> ...</span>
+                </p>
                 
                 <div class="card-size-selector" style="margin-bottom: 16px;">
                   <span style="font-size:12px; color:var(--text-muted); align-self:center; margin-right:8px;">Size:</span>
@@ -133,7 +136,7 @@
                 </div>
               </div>
               <div class="fragrance-image-wrap reveal skeleton-loader">
-                <span class="label-caps fragrance-top-badge">Signature Women's Fragrance · ${String(idx+1).padStart(2,'0')}</span>
+                <span class="label-caps fragrance-top-badge mobile-only">Signature Women's Fragrance · ${String(idx+1).padStart(2,'0')}</span>
                 <img src="${p.image}" alt="${p.name} perfume bottle" class="fragrance-image" onload="this.parentElement.classList.remove('skeleton-loader');" onerror="this.parentElement.classList.remove('skeleton-loader');">
                 <div class="fragrance-image-specs">
                   <div class="img-stat-box">
@@ -148,7 +151,7 @@
                   <div class="img-stat-sep"></div>
                   <div class="img-stat-box">
                     <span class="img-stat-num">${p.sillage || 'Strong'}</span>
-                    <span class="img-stat-lbl">Sillage</span>
+                    <span class="img-stat-lbl">Projection</span>
                   </div>
                 </div>
               </div>

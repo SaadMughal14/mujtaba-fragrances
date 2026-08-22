@@ -293,7 +293,7 @@
         <div class="notes-header-block">
           <div class="notes-badge-row">
             <span class="gender-badge ${badgeClass}">${genderLabel}</span>
-            <span class="notes-olfactory-tag"><i class="fa-solid fa-feather-pointed"></i> Fragrance Notes · خوشبو کے نوٹس</span>
+            <span class="notes-olfactory-tag"><i class="fa-solid fa-feather-pointed"></i> Fragrance Notes</span>
           </div>
           <h2 class="notes-perfume-title">${p.name}</h2>
           <p class="notes-perfume-tagline">"${p.tagline}"</p>
@@ -305,7 +305,7 @@
             <div class="note-tier-header">
               <span class="tier-icon">🌸</span>
               <div>
-                <h4>Top Notes <span class="tier-urdu">· پہلی خوشبو</span></h4>
+                <h4>Top Notes</h4>
                 <span class="tier-timing">First 15–30 mins (Opening)</span>
               </div>
             </div>
@@ -317,7 +317,7 @@
             <div class="note-tier-header">
               <span class="tier-icon">🌿</span>
               <div>
-                <h4>Heart Notes <span class="tier-urdu">· درمیانی خوشبو</span></h4>
+                <h4>Heart Notes</h4>
                 <span class="tier-timing">2–4 hours (The Core Character)</span>
               </div>
             </div>
@@ -329,7 +329,7 @@
             <div class="note-tier-header">
               <span class="tier-icon">🪵</span>
               <div>
-                <h4>Base Notes <span class="tier-urdu">· دیرپا اثر</span></h4>
+                <h4>Base Notes</h4>
                 <span class="tier-timing">8–18+ hours (Lingering Foundation)</span>
               </div>
             </div>
@@ -344,7 +344,7 @@
           </div>
           <div class="perf-divider"></div>
           <div class="perf-metric">
-            <span class="perf-lbl"><i class="fa-solid fa-wind"></i> Sillage</span>
+            <span class="perf-lbl"><i class="fa-solid fa-wind"></i> Projection</span>
             <span class="perf-val">${p.sillage || 'Strong'}</span>
           </div>
           <div class="perf-divider"></div>
@@ -545,4 +545,17 @@
     startAutoPlay();
   }
 
+  /* ---------- Auto-collapse expanded descriptions on scroll / touch ---------- */
+  function collapseExpandedDescriptions() {
+    const expanded = document.querySelectorAll('.fragrance-desc.is-expanded');
+    if (expanded.length > 0) {
+      expanded.forEach(el => el.classList.remove('is-expanded'));
+    }
+  }
+
+  window.addEventListener('scroll', collapseExpandedDescriptions, { passive: true, capture: true });
+  window.addEventListener('touchmove', collapseExpandedDescriptions, { passive: true, capture: true });
+  window.addEventListener('wheel', collapseExpandedDescriptions, { passive: true, capture: true });
+
 })();
+

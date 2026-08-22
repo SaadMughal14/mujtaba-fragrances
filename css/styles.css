@@ -1916,12 +1916,6 @@ section {
   gap: 6px;
 }
 
-.tier-urdu {
-  font-size: 12px;
-  color: var(--accent);
-  font-weight: 400;
-}
-
 .tier-timing {
   display: block;
   font-size: 11px;
@@ -3037,6 +3031,16 @@ section {
   margin-bottom: clamp(10px, 1.5vh, 18px);
 }
 
+.fragrance-top-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: clamp(6px, 1.2vh, 12px);
+}
+
 .fragrance-top-badge {
   display: block;
   font-size: 11px;
@@ -3046,6 +3050,10 @@ section {
   font-weight: 600;
   margin-bottom: clamp(6px, 1.2vh, 12px);
   text-align: center;
+}
+
+.fragrance-top-badge.mobile-only {
+  display: none;
 }
 
 .fragrance-content h1 {
@@ -3075,6 +3083,10 @@ section {
   font-weight: 300;
 }
 
+.fragrance-desc .desc-dots {
+  display: none;
+}
+
 .fragrance-actions {
   display: flex;
   gap: 12px;
@@ -3102,51 +3114,50 @@ section {
 }
 
 .fragrance-image-specs {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-top: clamp(6px, 1.2vh, 10px);
-  padding: 3.5px 16px;
-  background: rgba(12, 10, 8, 0.7);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  gap: 20px;
+  margin-top: clamp(10px, 1.8vh, 18px);
+  padding: 8px 22px;
+  background: rgba(12, 10, 8, 0.75);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   z-index: 4;
-  max-width: fit-content;
 }
 
 .img-stat-box {
   display: flex;
-  align-items: baseline;
-  gap: 4.5px;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
 .img-stat-num {
   font-family: var(--font-heading);
-  font-size: 11.5px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--accent);
   line-height: 1;
-  letter-spacing: 0.03em;
 }
 
 .img-stat-lbl {
-  font-size: 7.5px;
-  letter-spacing: 0.09em;
+  font-size: 8.5px;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
+  margin-top: 3px;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .img-stat-sep {
   width: 1px;
-  height: 10px;
-  background: rgba(212, 175, 55, 0.2);
+  height: 18px;
+  background: rgba(212, 175, 55, 0.25);
 }
 
 /* Butterflies (men's hero decoration) */
@@ -4884,7 +4895,11 @@ section {
     align-items: center;
   }
 
-  .fragrance-top-badge {
+  .fragrance-top-label {
+    display: none !important;
+  }
+
+  .fragrance-top-badge.mobile-only {
     display: block !important;
     font-size: 10.5px !important;
     letter-spacing: 0.18em !important;
@@ -4902,17 +4917,33 @@ section {
   }
 
   .fragrance-image-specs {
-    margin-top: 6px !important;
-    padding: 3px 12px !important;
-    gap: 10px !important;
+    margin-top: 8px !important;
+    padding: 6px 18px !important;
+    gap: 16px !important;
+    display: flex !important;
+  }
+
+  .img-stat-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
   }
 
   .img-stat-num {
-    font-size: 11px !important;
+    font-size: 13.5px !important;
+    line-height: 1 !important;
   }
 
   .img-stat-lbl {
-    font-size: 7px !important;
+    font-size: 8px !important;
+    margin-top: 2px !important;
+    line-height: 1.2 !important;
+  }
+
+  .img-stat-sep {
+    width: 1px !important;
+    height: 16px !important;
   }
 
   .fragrance-content {
@@ -4954,9 +4985,38 @@ section {
     margin: 0 auto 10px !important;
     text-align: center !important;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+
+  .fragrance-desc .desc-dots {
+    display: inline-block !important;
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    padding: 0 4px !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  .fragrance-desc.is-expanded {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+    max-height: none !important;
+    background: rgba(12, 10, 8, 0.95) !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+    z-index: 20 !important;
+  }
+
+  .fragrance-desc.is-expanded .desc-dots {
+    display: none !important;
   }
 
   .size-options {
