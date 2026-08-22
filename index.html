@@ -206,8 +206,10 @@
           <div class="sleek-badge" id="sleekBadge">
             <svg class="sleek-badge-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <!-- Single shared path for text — centered exactly at 110,110 -->
-                <path id="circle-text-sleek" fill="none" d="M 110,22 A 88,88 0 1,1 109.99,22"/>
+                <!-- Top arc path (upper half, left to right) for "CRAFTED WITH CARE" -->
+                <path id="arc-top" fill="none" d="M 22,110 A 88,88 0 0,1 198,110"/>
+                <!-- Bottom arc path (lower half, right to left) for "CONSCIOUS BY NATURE" -->
+                <path id="arc-bottom" fill="none" d="M 198,110 A 88,88 0 0,1 22,110"/>
                 <linearGradient id="sleekGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#F5E1A4"/>
                   <stop offset="50%" stop-color="#D4AF37"/>
@@ -216,38 +218,64 @@
               </defs>
 
               <!-- ===== SINGLE UNIFIED ROTATING COMPONENT ===== -->
-              <!-- Everything that should rotate is inside this one group -->
               <g class="sleek-rotating-group" style="transform-origin: 110px 110px;">
 
-                <!-- Outer thin ring (r=100, well within 220 viewBox) -->
+                <!-- Outer thin ring -->
                 <circle cx="110" cy="110" r="100" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.5"/>
 
-                <!-- Rotating text on circle path -->
+                <!-- Top text: "CRAFTED WITH CARE" on upper arc -->
                 <text class="sleek-badge-text">
-                  <textPath href="#circle-text-sleek" startOffset="0">
-                    CRAFTED WITH CARE · CONSCIOUS BY NATURE · CRAFTED WITH CARE · CONSCIOUS BY NATURE ·
+                  <textPath href="#arc-top" startOffset="50%" text-anchor="middle">
+                    CRAFTED WITH CARE
                   </textPath>
                 </text>
+
+                <!-- Bottom text: "CONSCIOUS BY NATURE" on lower arc -->
+                <text class="sleek-badge-text">
+                  <textPath href="#arc-bottom" startOffset="50%" text-anchor="middle">
+                    CONSCIOUS BY NATURE
+                  </textPath>
+                </text>
+
+                <!-- Dot separators at 9 o'clock and 3 o'clock -->
+                <circle cx="20" cy="110" r="2" fill="#D4AF37" opacity="0.7"/>
+                <circle cx="200" cy="110" r="2" fill="#D4AF37" opacity="0.7"/>
 
                 <!-- Inner thin ring -->
                 <circle cx="110" cy="110" r="68" fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.5" opacity="0.4"/>
 
-                <!-- Tick marks at cardinal points -->
-                <line x1="110" y1="14" x2="110" y2="22" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
-                <line x1="110" y1="198" x2="110" y2="206" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
-                <line x1="14" y1="110" x2="22" y2="110" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
-                <line x1="198" y1="110" x2="206" y2="110" stroke="url(#sleekGoldGrad)" stroke-width="1" opacity="0.6"/>
-
               </g>
 
-              <!-- ===== CENTER ICON (static, does not rotate) ===== -->
-              <!-- Simple diamond + dot — perfectly centered at 110,110 -->
+              <!-- ===== CENTER ICON (static) — botanical lotus ===== -->
               <g class="sleek-center-icon" transform="translate(110, 110)">
-                <!-- Small diamond outline -->
-                <path d="M 0,-16 L 12,0 L 0,16 L -12,0 Z"
-                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="1" stroke-linejoin="round"/>
+                <!-- Outer petals (4 large, pointing cardinal directions) -->
+                <!-- Top petal -->
+                <path d="M 0,-26 C -8,-20 -10,-12 0,-4 C 10,-12 8,-20 0,-26 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
+                <!-- Bottom petal -->
+                <path d="M 0,26 C -8,20 -10,12 0,4 C 10,12 8,20 0,26 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
+                <!-- Left petal -->
+                <path d="M -26,0 C -20,-8 -12,-10 -4,0 C -12,10 -20,8 -26,0 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
+                <!-- Right petal -->
+                <path d="M 26,0 C 20,-8 12,-10 4,0 C 12,10 20,8 26,0 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.8" stroke-linejoin="round"/>
+
+                <!-- Inner petal veins (delicate detail) -->
+                <line x1="0" y1="-24" x2="0" y2="-6" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
+                <line x1="0" y1="6" x2="0" y2="24" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
+                <line x1="-24" y1="0" x2="-6" y2="0" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
+                <line x1="6" y1="0" x2="24" y2="0" stroke="url(#sleekGoldGrad)" stroke-width="0.4" opacity="0.6"/>
+
+                <!-- Inner small petals (rotated 45°) -->
+                <path d="M 0,-14 C -4,-10 -4,-6 0,-2 C 4,-6 4,-10 0,-14 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
+                <path d="M 0,14 C -4,10 -4,6 0,2 C 4,6 4,10 0,14 Z"
+                      fill="none" stroke="url(#sleekGoldGrad)" stroke-width="0.6" opacity="0.7"/>
+
                 <!-- Center dot -->
-                <circle cx="0" cy="0" r="2.5" fill="url(#sleekGoldGrad)"/>
+                <circle cx="0" cy="0" r="1.5" fill="url(#sleekGoldGrad)"/>
               </g>
             </svg>
           </div>

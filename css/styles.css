@@ -1331,9 +1331,10 @@ section {
 
 .feature-badge-wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 40px;
+  justify-content: center;
+  gap: 32px;
 }
 
 /* ==========================================================================
@@ -1535,7 +1536,6 @@ section {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: 20px;
 }
 
 .feature-nav button {
