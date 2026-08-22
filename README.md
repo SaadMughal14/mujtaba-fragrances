@@ -1,4 +1,4 @@
-# Mujtaba Fragrances - Premium E-Commerce Website
+# Mujtaba Fragrances - Premium E-Commerce Website.
 
 A full multi-page luxury perfume e-commerce site with cart, checkout, and Discord order notifications. Built as static HTML/CSS/vanilla JS with a single Vercel serverless function for order submission. **All prices in Pakistani Rupees (PKR / Rs).**
 
